@@ -2,24 +2,37 @@ use std::io;
 use std::fs;
 use std::env;
 use std::str;
+use std::process::Command;
 use std::io::BufRead;
 use std::fs::OpenOptions;
 use std::io::{Write, BufReader};
 
-const PATH: &str = "/home/kolu/.bashrc";
+
+fn find_path() -> String {
+    let path = Command::new("bash")
+        .arg("-c")
+        .arg("echo $HOME")
+        .output()
+        .expect("error: command execution");
+
+    let path = str::from_utf8(&path.stdout).expect("error: conversion error");
+    path.trim().to_string()
+}
+
 
 fn main() {
+    let path: String = format!("{}/.bashrc", find_path());
     let input: Vec<String> = env::args().collect();
     let args = input.len();
 
     match args {
-        1 => list(),
+        1 => list(&path),
         2 => match &input[1][..] {
-            "add" => add(),
+            "add" => add(&path),
             _ => println!(),
         }
         3 => match &input[1][..] {
-            "del" => del(&input[2]),
+            "del" => del(&path, &input[2]),
             _ => println!(),
         }
         _ => println!(),
@@ -28,11 +41,11 @@ fn main() {
 }
 
 
-fn list() {
+fn list(path: &str) {
     // open
     let file = OpenOptions::new()
         .read(true)
-        .open(PATH)
+        .open(path)
         .expect("error: open file");
 
     // read
@@ -50,7 +63,7 @@ fn list() {
 }
 
 
-fn add() {
+fn add(path: &str) {
     // input
     let mut input = String::new();
     io::stdin().read_line(&mut input).expect("error: read input");
@@ -59,7 +72,7 @@ fn add() {
     // open
     let mut file = OpenOptions::new()
         .append(true)
-        .open(PATH)
+        .open(path)
         .expect("error: open file");
 
     // write
@@ -67,7 +80,7 @@ fn add() {
 }
 
 
-fn del(index_to_delete: &str) {
+fn del(path: &str, index_to_delete: &str) {
     // error
     let check = index_to_delete.chars().all(char::is_numeric);
     if !check {
@@ -78,7 +91,7 @@ fn del(index_to_delete: &str) {
     // open
     let file = OpenOptions::new()
         .read(true)
-        .open(PATH)
+        .open(path)
         .expect("error: open file");
     
     // read
@@ -106,8 +119,8 @@ fn del(index_to_delete: &str) {
     }
     
     // remove, create and write to bashrc
-    fs::remove_file(PATH).expect("error: remove bashrc file");
-    let mut file = create_file(PATH, "error: create new bashrc"); 
+    fs::remove_file(path).expect("error: remove bashrc file");
+    let mut file = create_file(&path, "error: create new bashrc"); 
     for (index, line) in contents.iter().enumerate() {
         if index+1 != index_to_delete {
             writeln!(file, "{}", line).expect("error: write file");
