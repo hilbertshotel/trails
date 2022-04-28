@@ -9,7 +9,7 @@ type Config struct {
 func Init() *Config {
 	return &Config{
 		HostAddr: "127.0.0.1:9990",
-		ConnStr:  "",
+		ConnStr:  "user=postgres dbname=trails sslmode=disable host=/run/postgresql",
 		Template: "templates/*",
 	}
 }

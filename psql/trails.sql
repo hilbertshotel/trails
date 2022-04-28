@@ -1,9 +1,11 @@
 CREATE DATABASE trails;
 
-CREATE TABLE trails.sessions (
+\c trails
+
+CREATE TABLE workouts (
   id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  date TIMESTAMTZ NOT NULL,
-  duration TIME NOT NULL,
+  date TIMESTAMPTZ NOT NULL,
+  duration VARCHAR(20) NOT NULL,
   distance REAL NOT NULL,
   pace_avg REAL NOT NULL,
   pace_best REAL NOT NULL,
@@ -12,5 +14,6 @@ CREATE TABLE trails.sessions (
   elev_gain INT NOT NULL,
   elev_loss INT NOT NULL,
   location VARCHAR(100) NOT NULL,
-  terrain VARCHAR(10) NOT NULL
-)
+  terrain VARCHAR(10) NOT NULL,
+  footwear VARCHAR(10) NOT NULL 
+);
