@@ -1,15 +1,13 @@
 package models
 
-import "time"
-
 type Peak struct {
-	Duration time.Duration
+	Duration string
 	Pace     float64
 	HR       int
 }
 
 type Average struct {
-	Duration time.Duration
+	Duration string
 	Pace     float64
 	HR       int
 }
@@ -18,7 +16,7 @@ type Total struct {
 	Workouts  int
 	Distance  float64
 	Elevation int
-	Duration  time.Duration
+	Duration  string
 }
 
 type TerrainAnalytics struct {

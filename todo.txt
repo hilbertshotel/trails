@@ -1,0 +1,9 @@
+1. insert one entry in mongo by hand
+
+2. add logs handler (route)
++ insertion logging
++ get request logging (with IP)
+
+3. add authentication to the add functionality
+
+4. add https for authentication

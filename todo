@@ -1,5 +1,0 @@
-1. use a template for the frontend
-
-2. add logs handler (route)
-+ insertion logging
-+ get request logging (with IP)

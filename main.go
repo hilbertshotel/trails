@@ -1,7 +1,7 @@
 package main
 
 import (
-	"database/sql"
+	"context"
 	"net/http"
 	"text/template"
 	"time"
@@ -9,10 +9,9 @@ import (
 	"trails/handlers"
 	"trails/logger"
 
-	_ "github.com/lib/pq"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
-
-const ADDRESS = "127.0.0.1:9990"
 
 func main() {
 
@@ -23,11 +22,17 @@ func main() {
 	cfg := config.Init()
 
 	// database
-	db, err := sql.Open("postgres", cfg.ConnStr)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(cfg.Mongo.Uri))
 	if err != nil {
 		log.Error(err)
 		return
 	}
+	defer client.Disconnect(ctx)
+
+	coll := client.Database(cfg.Mongo.Database).Collection(cfg.Mongo.Coll)
 
 	// templates
 	tmp, err := template.ParseGlob(cfg.Template)
@@ -39,7 +44,7 @@ func main() {
 	// server
 	server := http.Server{
 		Addr:         cfg.HostAddr,
-		Handler:      handlers.Mux(log, tmp, db),
+		Handler:      handlers.Mux(log, tmp, coll),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}

@@ -1,10 +1,9 @@
-[DESIGN]
-
 [ADD]
 slide show
 fill out each field on separate slide
 
 data to collect:
+
 duration
 distance
 pace_avg
@@ -15,26 +14,4 @@ elev_gain
 elev_loss
 location
 terrain
-
-STATISTICS]
-
-[totals]
-total sessions
-total distance
-total elevation
-total duration
-
-[averages]
-avg duration (excludes the long distances ?) ?????
-avg pace /km
-avg hr
-
-[peaks]
-longest duration
-fastest pace /km
-highest hr
-
-[misc]
-terrain % percentage
-footwear %
-
+footwear

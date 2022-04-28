@@ -1,22 +1,22 @@
 package models
 
-import "time"
-
+// BASICS
 type Pace struct {
-	Avg  float64
-	Best float64
+	Avg  float64 `bson:"avg"`
+	Best float64 `bson:"best"`
 }
 
 type HR struct {
-	Avg int
-	Max int
+	Avg int `bson:"avg"`
+	Max int `bson:"max"`
 }
 
 type Elev struct {
-	Gain int
-	Loss int
+	Gain int `bson:"gain"`
+	Loss int `bson:"loss"`
 }
 
+// LOCATION
 type Terrain string
 
 const (
@@ -26,10 +26,11 @@ const (
 )
 
 type Location struct {
-	Name    string
-	Terrain Terrain
+	Name    string  `bson:"name"`
+	Terrain Terrain `bson:"terrain"`
 }
 
+// FOOTWEAR
 type Footwear string
 
 const (
@@ -38,12 +39,14 @@ const (
 	Standard Footwear = "standard"
 )
 
+// WORKOUT
 type Workout struct {
-	Duration time.Duration
-	Distance float64
-	Pace     Pace
-	HR       HR
-	Elev     Elev
-	Terrain  Terrain
-	Footwear Footwear
+	Date     string   `bson:"date"`
+	Duration string   `bson:"duration"`
+	Distance float64  `bson:"distance"`
+	Pace     Pace     `bson:"pace"`
+	HR       HR       `bson:"hr"`
+	Elev     Elev     `bson:"elev"`
+	Location Location `bson:"location"`
+	Footwear Footwear `bson:"footwear"`
 }

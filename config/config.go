@@ -1,15 +1,25 @@
 package config
 
+type Mongo struct {
+	Uri      string
+	Database string
+	Coll     string
+}
+
 type Config struct {
 	HostAddr string
-	ConnStr  string
 	Template string
+	Mongo    Mongo
 }
 
 func Init() *Config {
 	return &Config{
 		HostAddr: "127.0.0.1:9990",
-		ConnStr:  "user=postgres dbname=trails sslmode=disable host=/run/postgresql",
 		Template: "templates/*",
+		Mongo: Mongo{
+			Uri:      "mongodb://localhost:27017",
+			Database: "trails",
+			Coll:     "workouts",
+		},
 	}
 }
