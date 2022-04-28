@@ -1,0 +1,21 @@
+body {
+  text-align: center;
+}
+
+#box {
+  display: inline-block;
+  margin-top: 3rem;
+  background-color: blanchedalmond;
+  padding: 1rem;
+}
+
+.section {
+  border: .1rem solid black;
+}
+
+.stat {
+  display: inline-block;
+  border: .1rem solid black;
+  padding: .2rem;
+  margin: .2rem;
+}

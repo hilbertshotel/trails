@@ -1,0 +1,108 @@
+{{ template "head.html" . }}
+
+  <div id="box">
+
+    <!-- HEADER -->
+    <div id="header">
+      <span id="trails_header">trails</span>
+      <span id="add_button">add</span>
+    </div>
+
+    <!-- TOTALS -->
+    <div class="section">total</div>
+
+    <div class="stat"> 
+      <div>workouts</div>
+      <div>{{ .Total.Workouts }}</div>
+    </div>
+    <div class="stat">
+      <div>distance</div>
+      <div>{{ .Total.Distance }}km</div>
+    </div>
+
+    <br>
+    
+    <div class="stat">
+      <div>duration</div>
+      <div>{{ .Total.Duration }}</div>
+    </div>
+    <div class="stat">
+      <div>elevation</div>
+      <div>{{ .Total.Elevation }}m</div>
+    </div>
+
+    <br>
+
+    <!-- AVERAGES -->
+    <div class="section">average</div>
+
+    <div class="stat">
+      <div>duration</div>
+      <div>{{ .Average.Duration }}</div>
+    </div>
+    <div class="stat">
+      <div>pace</div>
+      <div>{{ .Average.Pace }}</div>
+    </div>
+    <div class="stat">
+      <div>hr</div>
+      <div>{{ .Average.HR }}</div>
+    </div>
+
+    <br>
+
+    <!-- PEAKS -->
+    <div class="section">peak</div>
+
+    <div class="stat">
+      <div>duration</div>
+      <div>{{ .Peak.Duration }}</div>
+    </div>
+    <div class="stat">
+      <div>pace</div>
+      <div>{{ .Peak.Pace }}</div>
+    </div>
+    <div class="stat">
+      <div>hr</div>
+      <div>{{ .Peak.HR }}</div>
+    </div>
+
+    <br>
+
+    <!-- TERRAIN -->
+    <div class="section">terrain</div>
+
+    <div class="stat">
+      <div>road</div>
+      <div>{{ .Terrain.Road }}%</div>
+    </div>
+    <div class="stat">
+      <div>trail</div>
+      <div>{{ .Terrain.Trail }}%</div>
+    </div>
+    <div class="stat">
+      <div>treadmill</div>
+      <div>{{ .Terrain.Treadmill }}%</div>
+    </div>
+
+    <br>
+
+    <!-- FOOTWEAR -->
+    <div class="section">footwear</div>
+
+    <div class="stat">
+      <div>barefoot</div>
+      <div>{{ .Footwear.Barefoot }}%</div>
+    </div>
+    <div class="stat">
+      <div>minimal</div>
+      <div>{{ .Footwear.Minimal }}%</div>
+    </div>
+    <div class="stat">
+      <div>standard</div>
+      <div>{{ .Footwear.Standard }}%</div>
+    </div>
+
+  </div>
+
+  {{ template "scripts.html" . }}
