@@ -7,12 +7,14 @@ import (
 	"time"
 )
 
+// FORMAT PACE
 func FormatPace(p float64) string {
 	s := fmt.Sprintf("%.2f", p)
 	nums := strings.Split(s, ".")
 	return fmt.Sprintf("%v'%v", nums[0], nums[1])
 }
 
+// FORMAT DURATION
 func FormatDuration(minutes float64) string {
 	mins := int(minutes)
 	if mins < 60 {
@@ -30,10 +32,12 @@ func FormatDuration(minutes float64) string {
 	}
 }
 
+// FORMAT PERCENT
 func FormatPercent(n float64) string {
 	return fmt.Sprintf("%v%%", math.Round(n))
 }
 
+// PARSE STREAK
 func ParseStreak(dates []string) int {
 	longest, streak := 0, 1
 	prev, _ := time.Parse(time.RFC822, dates[0]+" 10:00 MST")
@@ -55,4 +59,11 @@ func ParseStreak(dates []string) int {
 	}
 
 	return longest
+}
+
+// PARSE RANGE
+func ParseRange(dates []string) int {
+	first, _ := time.Parse(time.RFC822, dates[0]+" 10:00 MST")
+	last, _ := time.Parse(time.RFC822, dates[len(dates)-1]+" 10:00 MST")
+	return int(last.Sub(first).Hours() / 24)
 }

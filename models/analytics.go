@@ -12,6 +12,7 @@ type Total struct {
 	Distance  float64
 	Elevation int
 	Duration  string
+	Range     int
 	Streak    int
 }
 

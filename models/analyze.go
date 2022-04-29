@@ -17,6 +17,7 @@ func Analyze(workouts []Workout, log *logger.Logger) Analytics {
 				Distance:  0,
 				Elevation: 0,
 				Duration:  "0m",
+				Range:     0,
 				Streak:    0,
 			},
 			Peak: Peak{
@@ -66,6 +67,7 @@ func Analyze(workouts []Workout, log *logger.Logger) Analytics {
 		}
 
 		total.Duration = lib.FormatDuration(minutes)
+		total.Range = lib.ParseRange(dates)
 		total.Streak = lib.ParseStreak(dates)
 
 	}(&total, &wg)
