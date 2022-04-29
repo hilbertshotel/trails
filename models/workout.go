@@ -20,9 +20,9 @@ type Elev struct {
 type Terrain string
 
 const (
-	Road      Terrain = "road"
-	Trail     Terrain = "trail"
-	Treadmill Terrain = "treadmill"
+	Road  Terrain = "road"
+	Trail Terrain = "trail"
+	Gym   Terrain = "gym"
 )
 
 type Location struct {
@@ -34,7 +34,6 @@ type Location struct {
 type Footwear string
 
 const (
-	Barefoot Footwear = "barefoot"
 	Minimal  Footwear = "minimal"
 	Standard Footwear = "standard"
 )

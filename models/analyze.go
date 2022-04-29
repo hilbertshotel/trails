@@ -1,92 +1,40 @@
 package models
 
 import (
-	"fmt"
 	"sync"
 	"time"
+	"trails/lib"
 	"trails/logger"
 )
 
 func Analyze(workouts []Workout, log *logger.Logger) Analytics {
-	var data Analytics
 
 	// HANDLE NO WORKOUTS
 	if len(workouts) == 0 {
-
-		data = Analytics{
+		return Analytics{
 			Total: Total{
 				Workouts:  0,
 				Distance:  0,
 				Elevation: 0,
-				Duration:  "0",
-			},
-			Average: Average{
-				Duration: "0",
-				Pace:     0,
-				HR:       0,
+				Duration:  "0m",
+				Streak:    0,
 			},
 			Peak: Peak{
-				Duration: "0",
-				Pace:     0,
-				HR:       0,
+				Duration:  "0m",
+				Pace:      "0",
+				Distance:  0,
+				Elevation: 0,
 			},
 			Terrain: TerrainAnalytics{
-				Road:      0,
-				Trail:     0,
-				Treadmill: 0,
+				Road:  "0%",
+				Trail: "0%",
+				Gym:   "0%",
 			},
 			Footwear: FootwearAnalytics{
-				Barefoot: 0,
-				Minimal:  0,
-				Standard: 0,
+				Minimal:  "0%",
+				Standard: "0%",
 			},
 		}
-
-		return data
-	}
-
-	// HANDLE SINGLE WORKOUT
-	if len(workouts) == 1 {
-		workout := workouts[0]
-
-		data = Analytics{
-			Total: Total{
-				Workouts:  1,
-				Distance:  workout.Distance,
-				Elevation: workout.Elev.Gain,
-				Duration:  workout.Duration,
-			},
-			Average: Average{
-				Duration: workout.Duration,
-				Pace:     workout.Pace.Avg,
-				HR:       workout.HR.Avg,
-			},
-			Peak: Peak{
-				Duration: workout.Duration,
-				Pace:     workout.Pace.Best,
-				HR:       workout.HR.Max,
-			},
-		}
-
-		switch workout.Location.Terrain {
-		case Road:
-			data.Terrain.Road = 100
-		case Trail:
-			data.Terrain.Trail = 100
-		case Treadmill:
-			data.Terrain.Treadmill = 100
-		}
-
-		switch workout.Footwear {
-		case Barefoot:
-			data.Footwear.Barefoot = 100
-		case Minimal:
-			data.Footwear.Minimal = 100
-		case Standard:
-			data.Footwear.Standard = 100
-		}
-
-		return data
 	}
 
 	// HANDLE MULTIPLE WORKOUTS
@@ -100,50 +48,27 @@ func Analyze(workouts []Workout, log *logger.Logger) Analytics {
 		defer wg.Done()
 
 		var minutes float64
+		var dates []string
+
 		for _, w := range workouts {
 			total.Workouts++
 			total.Distance += w.Distance
 			total.Elevation += w.Elev.Gain
 
-			dur, err := time.ParseDuration(w.Duration)
+			duration, err := time.ParseDuration(w.Duration)
 			if err != nil {
 				log.Error(err)
 				return
 			}
-			minutes += dur.Minutes()
+
+			minutes += duration.Minutes()
+			dates = append(dates, w.Date)
 		}
 
-		// convert minutes to string 133d16h1m
-		total.Duration = fmt.Sprintf("%vm", minutes) //////////////////////
+		total.Duration = lib.FormatDuration(minutes)
+		total.Streak = lib.ParseStreak(dates)
 
 	}(&total, &wg)
-
-	// calculate averages
-	var average Average
-
-	wg.Add(1)
-	go func(average *Average, wg *sync.WaitGroup) {
-		defer wg.Done()
-
-		minutes, pace, hr := 0.0, 0.0, 0
-		for _, w := range workouts {
-			pace += w.Pace.Avg
-			hr += w.HR.Avg
-
-			dur, err := time.ParseDuration(w.Duration)
-			if err != nil {
-				log.Error(err)
-				return
-			}
-			minutes += dur.Minutes()
-		}
-
-		length := float64(len(workouts))
-		average.Duration = fmt.Sprintf("%vm", minutes/length) ////////////////////
-		average.Pace = pace / length
-		average.HR = int(float64(hr) / length)
-
-	}(&average, &wg)
 
 	// calculate peaks
 	var peak Peak
@@ -152,27 +77,32 @@ func Analyze(workouts []Workout, log *logger.Logger) Analytics {
 	go func(peak *Peak, wg *sync.WaitGroup) {
 		defer wg.Done()
 
-		maxDur, bestPace, maxHR := 0.0, 0.0, 0
+		pace := workouts[0].Pace.Best
+		dist, dur, elev := 0.0, 0.0, 0
 		for _, w := range workouts {
-			dur, err := time.ParseDuration(w.Duration)
+			duration, err := time.ParseDuration(w.Duration)
 			if err != nil {
 				log.Error(err)
 				return
 			}
-			if dur.Minutes() > maxDur {
-				maxDur = dur.Minutes()
+			if duration.Minutes() > dur {
+				dur = duration.Minutes()
 			}
-			if w.Pace.Best > bestPace {
-				bestPace = w.Pace.Best
+			if w.Pace.Best < pace {
+				pace = w.Pace.Best
 			}
-			if w.HR.Max > maxHR {
-				maxHR = w.HR.Max
+			if w.Distance > dist {
+				dist = w.Distance
+			}
+			if w.Elev.Gain > elev {
+				elev = w.Elev.Gain
 			}
 		}
 
-		peak.Duration = fmt.Sprintf("%vm", maxDur) ////////////////
-		peak.Pace = bestPace
-		peak.HR = maxHR
+		peak.Duration = lib.FormatDuration(dur)
+		peak.Pace = lib.FormatPace(pace)
+		peak.Distance = dist
+		peak.Elevation = elev
 
 	}(&peak, &wg)
 
@@ -183,22 +113,22 @@ func Analyze(workouts []Workout, log *logger.Logger) Analytics {
 	go func(terrain *TerrainAnalytics, wg *sync.WaitGroup) {
 		defer wg.Done()
 
-		roadCount, trailCount, treadCount := 0.0, 0.0, 0.0
+		road, trail, gym := 0.0, 0.0, 0.0
 		for _, w := range workouts {
 			switch w.Location.Terrain {
 			case Road:
-				roadCount++
+				road++
 			case Trail:
-				trailCount++
-			case Treadmill:
-				treadCount++
+				trail++
+			case Gym:
+				gym++
 			}
 		}
 
-		total := roadCount + trailCount + treadCount
-		terrain.Road = roadCount / total
-		terrain.Trail = trailCount / total
-		terrain.Treadmill = treadCount / total
+		total := float64(road + trail + gym)
+		terrain.Road = lib.FormatPercent(road / total * 100)
+		terrain.Trail = lib.FormatPercent(trail / total * 100)
+		terrain.Gym = lib.FormatPercent(gym / total * 100)
 
 	}(&terrain, &wg)
 
@@ -209,32 +139,28 @@ func Analyze(workouts []Workout, log *logger.Logger) Analytics {
 	go func(footwear *FootwearAnalytics, wg *sync.WaitGroup) {
 		defer wg.Done()
 
-		bareCount, minCount, standCount := 0.0, 0.0, 0.0
+		mnml, stnd := 0.0, 0.0
 		for _, w := range workouts {
 			switch w.Footwear {
-			case Barefoot:
-				bareCount++
 			case Minimal:
-				minCount++
+				mnml++
 			case Standard:
-				standCount++
+				stnd++
 			}
 		}
 
-		total := bareCount + minCount + standCount
-		footwear.Barefoot = bareCount / total
-		footwear.Minimal = minCount / total
-		footwear.Standard = standCount / total
+		total := float64(mnml + stnd)
+		footwear.Minimal = lib.FormatPercent(mnml / total * 100)
+		footwear.Standard = lib.FormatPercent(stnd / total * 100)
 
 	}(&footwear, &wg)
 
 	wg.Wait()
 
-	data.Total = total
-	data.Average = average
-	data.Peak = peak
-	data.Terrain = terrain
-	data.Footwear = footwear
-
-	return data
+	return Analytics{
+		Total:    total,
+		Peak:     peak,
+		Terrain:  terrain,
+		Footwear: footwear,
+	}
 }

@@ -1,0 +1,13 @@
+[Unit]
+Description=trails
+
+[Service]
+Restart=always
+RestartSec=30s
+WorkingDirectory=/home/ubuntu/src/trails
+ExecStart=/home/ubuntu/src/trails/trails
+StandardOutput=append:/home/ubuntu/src/trails/logs/trails.log
+StandardError=append:/home/ubuntu/src/trails/logs/trails.log
+
+[Install]
+WantedBy=multi-user.target

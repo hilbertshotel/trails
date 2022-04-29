@@ -1,1 +1,1 @@
-const ADDRESS = "127.0.0.1:9990"
+const ADDRESS = "http://127.0.0.1:9990"

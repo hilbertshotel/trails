@@ -1,15 +1,10 @@
 package models
 
 type Peak struct {
-	Duration string
-	Pace     float64
-	HR       int
-}
-
-type Average struct {
-	Duration string
-	Pace     float64
-	HR       int
+	Duration  string
+	Pace      string
+	Distance  float64
+	Elevation int
 }
 
 type Total struct {
@@ -17,23 +12,22 @@ type Total struct {
 	Distance  float64
 	Elevation int
 	Duration  string
+	Streak    int
 }
 
 type TerrainAnalytics struct {
-	Road      float64
-	Trail     float64
-	Treadmill float64
+	Road  string
+	Trail string
+	Gym   string
 }
 
 type FootwearAnalytics struct {
-	Barefoot float64
-	Minimal  float64
-	Standard float64
+	Minimal  string
+	Standard string
 }
 
 type Analytics struct {
 	Total    Total
-	Average  Average
 	Peak     Peak
 	Terrain  TerrainAnalytics
 	Footwear FootwearAnalytics

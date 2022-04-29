@@ -33,20 +33,9 @@
 
     <br>
 
-    <!-- AVERAGES -->
-    <div class="section">average</div>
-
     <div class="stat">
-      <div>duration</div>
-      <div>{{ .Average.Duration }}</div>
-    </div>
-    <div class="stat">
-      <div>pace</div>
-      <div>{{ .Average.Pace }}</div>
-    </div>
-    <div class="stat">
-      <div>hr</div>
-      <div>{{ .Average.HR }}</div>
+      <div>workout streak</div>
+      <div>{{ .Total.Streak }}</div>
     </div>
 
     <br>
@@ -62,9 +51,14 @@
       <div>pace</div>
       <div>{{ .Peak.Pace }}</div>
     </div>
+    <br>
     <div class="stat">
-      <div>hr</div>
-      <div>{{ .Peak.HR }}</div>
+      <div>distance</div>
+      <div>{{ .Peak.Distance }}km</div>
+    </div>
+    <div class="stat">
+      <div>elevation</div>
+      <div>{{ .Peak.Elevation }}m</div>
     </div>
 
     <br>
@@ -74,15 +68,15 @@
 
     <div class="stat">
       <div>road</div>
-      <div>{{ .Terrain.Road }}%</div>
+      <div>{{ .Terrain.Road }}</div>
     </div>
     <div class="stat">
       <div>trail</div>
-      <div>{{ .Terrain.Trail }}%</div>
+      <div>{{ .Terrain.Trail }}</div>
     </div>
-    <div class="stat">
-      <div>treadmill</div>
-      <div>{{ .Terrain.Treadmill }}%</div>
+     <div class="stat">
+      <div>gym</div>
+      <div>{{ .Terrain.Gym }}</div>
     </div>
 
     <br>
@@ -91,18 +85,14 @@
     <div class="section">footwear</div>
 
     <div class="stat">
-      <div>barefoot</div>
-      <div>{{ .Footwear.Barefoot }}%</div>
-    </div>
-    <div class="stat">
       <div>minimal</div>
-      <div>{{ .Footwear.Minimal }}%</div>
+      <div>{{ .Footwear.Minimal }}</div>
     </div>
     <div class="stat">
       <div>standard</div>
-      <div>{{ .Footwear.Standard }}%</div>
+      <div>{{ .Footwear.Standard }}</div>
     </div>
 
   </div>
 
-  {{ template "scripts.html" . }}
+{{ template "scripts.html" . }}
