@@ -1,22 +1,87 @@
-body {
-  text-align: center;
+:root {
+  --light_blue: #a0b8d5;
+  --dark_green: #45514d;
+  --trail_green: #9f906f;
+  --light_grey: #808b98;
+  --brownish: #a19fa4;
+  --light: #e5ebf1;
 }
 
+body {
+  margin: 0;
+  text-align: center;
+  user-select: none;
+  height: 100vh;
+  font-family: 'Nunito', sans-serif;
+
+  background-color: var(--light_blue);
+}
+
+#box, .section, .stat {
+  border-radius: .2rem;
+  border: .1rem solid var(--dark_green);
+}
+
+/* BOX */
 #box {
   display: inline-block;
-  margin-top: 3rem;
-  background-color: blanchedalmond;
-  padding: 1rem;
+  margin: 2rem 0 2rem 0;
+  padding: .5rem;
+
+  background-color: var(--light_grey);
+  color: var(--dark_green);
 }
 
+/* SECTION */
 .section {
-  border: .1rem solid black;
+  letter-spacing: .1rem;
+  font-weight: 800;
   margin: .1rem 0 .1rem 0;
+  background-color: var(--trail_green);
 }
 
+/* STAT */
 .stat {
+  background-color: var(--brownish);
+  color: var(--light);
+
   display: inline-block;
-  border: .1rem solid black;
-  padding: .2rem;
+  padding: .4rem;
   margin: .2rem;
+}
+
+.stat_val {
+  font-size: 2rem;
+  color: var(--dark_green);
+  text-shadow:
+    -0.1rem 0 var(--trail_green),
+    0 .1rem var(--trail_green),
+    .1rem 0 var(--trail_green),
+    0 -0.1rem var(--trail_green);
+}
+
+/* HEADER */
+#header {
+  text-align: left;
+  font-weight: 800;
+  margin: 0 .5rem 0 .5rem;
+}
+
+#app_name, #add_button {
+  font-size: 2rem;
+  color: var(--trail_green);
+  text-shadow:
+    -0.1rem 0 var(--dark_green),
+    0 .1rem var(--dark_green),
+    .1rem 0 var(--dark_green),
+    0 -0.1rem var(--dark_green);
+}
+
+#add_button {
+  float: right;
+  cursor: pointer;
+}
+
+#add_button:active {
+  color: var(--light);
 }

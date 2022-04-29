@@ -4,8 +4,8 @@
 
     <!-- HEADER -->
     <div id="header">
-      <span id="trails_header">trails</span>
-      <span id="add_button">add</span>
+      <span id="app_name">trails</span>
+      <span id="add_button">+</span>
     </div>
 
     <!-- TOTALS -->
@@ -13,33 +13,33 @@
 
     <div class="stat"> 
       <div>workouts</div>
-      <div>{{ .Total.Workouts }}</div>
+      <div class="stat_val">{{ .Total.Workouts }}</div>
     </div>
     <div class="stat">
       <div>distance</div>
-      <div>{{ .Total.Distance }}km</div>
+      <div class="stat_val">{{ .Total.Distance }}km</div>
     </div>
 
     <br>
     
     <div class="stat">
       <div>duration</div>
-      <div>{{ .Total.Duration }}</div>
+      <div class="stat_val">{{ .Total.Duration }}</div>
     </div>
     <div class="stat">
       <div>elevation</div>
-      <div>{{ .Total.Elevation }}m</div>
+      <div class="stat_val">{{ .Total.Elevation }}m</div>
     </div>
 
     <br>
 
     <div class="stat">
       <div>range</div>
-      <div>{{ .Total.Range }}d</div>
+      <div class="stat_val">{{ .Total.Range }}d</div>
     </div>
     <div class="stat">
       <div>streak</div>
-      <div>{{ .Total.Streak }}d</div>
+      <div class="stat_val">{{ .Total.Streak }}d</div>
     </div>
 
     <br>
@@ -49,20 +49,20 @@
 
     <div class="stat">
       <div>duration</div>
-      <div>{{ .Peak.Duration }}</div>
+      <div class="stat_val">{{ .Peak.Duration }}</div>
     </div>
     <div class="stat">
       <div>pace</div>
-      <div>{{ .Peak.Pace }}</div>
+      <div class="stat_val">{{ .Peak.Pace }}</div>
     </div>
     <br>
     <div class="stat">
       <div>distance</div>
-      <div>{{ .Peak.Distance }}km</div>
+      <div class="stat_val">{{ .Peak.Distance }}km</div>
     </div>
     <div class="stat">
       <div>elevation</div>
-      <div>{{ .Peak.Elevation }}m</div>
+      <div class="stat_val">{{ .Peak.Elevation }}m</div>
     </div>
 
     <br>
@@ -72,15 +72,15 @@
 
     <div class="stat">
       <div>road</div>
-      <div>{{ .Terrain.Road }}</div>
+      <div class="stat_val">{{ .Terrain.Road }}</div>
     </div>
     <div class="stat">
       <div>trail</div>
-      <div>{{ .Terrain.Trail }}</div>
+      <div class="stat_val">{{ .Terrain.Trail }}</div>
     </div>
      <div class="stat">
       <div>gym</div>
-      <div>{{ .Terrain.Gym }}</div>
+      <div class="stat_val">{{ .Terrain.Gym }}</div>
     </div>
 
     <br>
@@ -90,11 +90,11 @@
 
     <div class="stat">
       <div>minimal</div>
-      <div>{{ .Footwear.Minimal }}</div>
+      <div class="stat_val">{{ .Footwear.Minimal }}</div>
     </div>
     <div class="stat">
       <div>standard</div>
-      <div>{{ .Footwear.Standard }}</div>
+      <div class="stat_val">{{ .Footwear.Standard }}</div>
     </div>
 
   </div>
