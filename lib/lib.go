@@ -22,12 +22,22 @@ func FormatDuration(minutes float64) string {
 	} else if mins < 1440 {
 		h := mins / 60
 		m := mins % 60
+		if m == 0 {
+			return fmt.Sprintf("%vh", h)
+		}
 		return fmt.Sprintf("%vh%vm", h, m)
 	} else {
 		d := mins / 1440
 		rd := mins % 1440
 		h := rd / 60
 		m := rd % 60
+		if m == 0 && h == 0 {
+			return fmt.Sprintf("%vd", d)
+		} else if m == 0 {
+			return fmt.Sprintf("%vd%vh", d, h)
+		} else if h == 0 {
+			return fmt.Sprintf("%vd%vm", d, m)
+		}
 		return fmt.Sprintf("%vd%vh%vm", d, h, m)
 	}
 }

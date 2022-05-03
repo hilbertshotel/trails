@@ -40,4 +40,4 @@ sudo systemctl start trails.service
 apt -y install nginx
 sudo cp -r $DIR/setup/trails /etc/nginx/sites-available/trails
 sudo ln -s /etc/nginx/sites-available/trails /etc/nginx/sites-enabled/trails
-sudo systemctl restart nginx.service
+sudo systemctl start nginx.service
