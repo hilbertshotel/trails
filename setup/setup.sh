@@ -5,19 +5,12 @@ DIR="$HOME/src/trails"
 # upgrade & update
 sudo apt -y update && apt upgrade
 
-# install git
-sudo apt -y install git
-
-# install go
+# install go & build trails
 GOTAR="go1.18.1.linux-amd64.tar.gz"
 wget https://dl.google.com/go/$GOTAR
 tar -C $HOME -xzf $GOTAR
 rm -r $GOTAR
-
-# clone & build trails
-mkdir $HOME/src
-cd $HOME/src
-git clone https://github.com/hilbertshotel/trails.git
+cd $DIR
 go build
 
 # setup logs
