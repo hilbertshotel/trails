@@ -3,13 +3,16 @@
 DIR="$HOME/src/trails"
 
 # upgrade & update
-sudo apt -y update && apt upgrade
+sudo apt -y update
+sudo apt -y upgrade
 
 # install go & build trails
 GOTAR="go1.18.1.linux-amd64.tar.gz"
 wget https://dl.google.com/go/$GOTAR
 tar -C $HOME -xzf $GOTAR
 rm -r $GOTAR
+echo "export PATH=$PATH:~/go/bin" >> $HOME/.profile
+source $HOME/.profile
 cd $DIR
 go build
 
