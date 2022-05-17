@@ -1,10 +1,10 @@
 {
-  "date": "03 May 22",
-  "duration": "1h53m",
-  "distance": 14.78,
-  "pace": { "avg": 7.41, "best": 5.28 },
-  "hr": { "avg": 143, "max": 161 },
-  "elev": { "gain": 480, "loss": 491 },
-  "location": { "name": "Vitosha", "terrain": "trail" },
+  "date": "014 May 22",
+  "duration": "8h50m",
+  "distance": 49.00,
+  "pace": { "avg": 10.48, "best": 6.03 },
+  "hr": { "avg": 151, "max": 193 },
+  "elev": { "gain": 2449, "loss": 2456 },
+  "location": { "name": "Thracian Ultra", "terrain": "trail" },
   "footwear": "standard"
 }

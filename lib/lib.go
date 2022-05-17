@@ -72,8 +72,12 @@ func ParseStreak(dates []string) int {
 }
 
 // PARSE RANGE
-func ParseRange(dates []string) int {
-	first, _ := time.Parse(time.RFC822, dates[0]+" 10:00 MST")
-	last, _ := time.Parse(time.RFC822, dates[len(dates)-1]+" 10:00 MST")
-	return int(last.Sub(first).Hours() / 24)
+func ParseRange(date string) int {
+	start, _ := time.Parse(time.RFC822, date+" 10:00 MST")
+	end := time.Now()
+	return int(end.Sub(start).Hours() / 24)
+}
+
+func FormatDistance(dist float64) string {
+	return fmt.Sprintf("%.2f", dist)
 }

@@ -9,7 +9,7 @@ type Peak struct {
 
 type Total struct {
 	Workouts  int
-	Distance  float64
+	Distance  string
 	Elevation int
 	Duration  string
 	Range     int

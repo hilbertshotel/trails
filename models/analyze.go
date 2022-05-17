@@ -14,7 +14,7 @@ func Analyze(workouts []Workout, log *logger.Logger) Analytics {
 		return Analytics{
 			Total: Total{
 				Workouts:  0,
-				Distance:  0,
+				Distance:  "0",
 				Elevation: 0,
 				Duration:  "0m",
 				Range:     0,
@@ -50,10 +50,11 @@ func Analyze(workouts []Workout, log *logger.Logger) Analytics {
 
 		var minutes float64
 		var dates []string
+		var dist float64
 
 		for _, w := range workouts {
 			total.Workouts++
-			total.Distance += w.Distance
+			dist += w.Distance
 			total.Elevation += w.Elev.Gain
 
 			duration, err := time.ParseDuration(w.Duration)
@@ -66,8 +67,9 @@ func Analyze(workouts []Workout, log *logger.Logger) Analytics {
 			dates = append(dates, w.Date)
 		}
 
+		total.Distance = lib.FormatDistance(dist)
 		total.Duration = lib.FormatDuration(minutes)
-		total.Range = lib.ParseRange(dates)
+		total.Range = lib.ParseRange(dates[0])
 		total.Streak = lib.ParseStreak(dates)
 
 	}(&total, &wg)
