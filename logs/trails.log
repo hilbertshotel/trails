@@ -1,23 +1,4 @@
-OK 2022/05/03 06:38:45 Listening on 127.0.0.1:9990
-2022/05/03 10:03:25 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-OK 2022/05/03 17:39:25 Listening on 127.0.0.1:9990
-2022/05/04 11:00:41 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/05 13:19:30 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/06 19:17:25 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/07 00:01:09 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/07 00:01:09 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/08 02:25:11 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/08 17:48:20 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/11 20:21:37 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/12 20:33:52 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/14 00:01:06 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/14 00:01:06 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/14 15:54:54 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/14 16:14:22 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/15 15:22:35 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/16 16:00:50 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/17 10:00:01 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/17 10:49:02 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-2022/05/17 12:02:16 http: URL query contains semicolon, which is no longer a supported separator; parts of the query may be stripped when parsed; see golang.org/issue/25192
-OK 2022/05/17 17:01:16 Listening on 127.0.0.1:9990
-OK 2022/05/17 17:12:51 Listening on 127.0.0.1:9990
+OK 2022/12/01 10:33:25 Listening on 127.0.0.1:9999
+OK 2022/12/01 10:33:50 Listening on 127.0.0.1:9999
+OK 2022/12/01 10:34:07 Listening on 127.0.0.1:9990
+OK 2022/12/01 11:05:21 Listening on 127.0.0.1:9990

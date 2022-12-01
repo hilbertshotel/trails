@@ -7,7 +7,7 @@ sudo apt -y update
 sudo apt -y upgrade
 
 # install go & build trails
-GOTAR="go1.18.1.linux-amd64.tar.gz"
+GOTAR="go1.19.3.linux-amd64.tar.gz"
 wget https://dl.google.com/go/$GOTAR
 tar -C $HOME -xzf $GOTAR
 rm -r $GOTAR

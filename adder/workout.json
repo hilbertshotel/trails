@@ -1,10 +1,10 @@
 {
-  "date": "014 May 22",
-  "duration": "8h50m",
-  "distance": 49.00,
-  "pace": { "avg": 10.48, "best": 6.03 },
-  "hr": { "avg": 151, "max": 193 },
-  "elev": { "gain": 2449, "loss": 2456 },
-  "location": { "name": "Thracian Ultra", "terrain": "trail" },
+  "date": "01 Dec 22",
+  "duration": "28m",
+  "distance": 5.00,
+  "pace": { "avg": 5.35, "best": 5.22 },
+  "hr": { "avg": 144, "max": 159 },
+  "elev": { "gain": 0, "loss": 0 },
+  "location": { "name": "Sofia Krivulia", "terrain": "trail" },
   "footwear": "standard"
 }

@@ -49,7 +49,12 @@ func FormatPercent(n float64) string {
 
 // PARSE STREAK
 func ParseStreak(dates []string) int {
-	longest, streak := 0, 1
+
+	if len(dates) == 1 {
+		return 1
+	}
+
+	longest, streak := 0, 1	
 	prev, _ := time.Parse(time.RFC822, dates[0]+" 10:00 MST")
 
 	for i := 1; i < len(dates); i++ {
