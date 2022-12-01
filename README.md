@@ -9,4 +9,4 @@ stack:
     Golang, HTML, CSS, Nginx, Systemd, MongoDB, AWS Lightsail
 ```
 
-![alt text](info/trails_demo.jpg?raw=true)
+![alt text](info/trails_demo.jpeg?raw=true)
