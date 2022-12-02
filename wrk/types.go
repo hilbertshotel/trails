@@ -1,6 +1,6 @@
-package models
+package wrk
 
-// BASICS
+// WORKOUT
 type Pace struct {
 	Avg  float64 `bson:"avg"`
 	Best float64 `bson:"best"`
@@ -16,7 +16,6 @@ type Elev struct {
 	Loss int `bson:"loss"`
 }
 
-// LOCATION
 type Terrain string
 
 const (
@@ -30,7 +29,6 @@ type Location struct {
 	Terrain Terrain `bson:"terrain"`
 }
 
-// FOOTWEAR
 type Footwear string
 
 const (
@@ -38,7 +36,6 @@ const (
 	Standard Footwear = "standard"
 )
 
-// WORKOUT
 type Workout struct {
 	Date     string   `bson:"date"`
 	Duration string   `bson:"duration"`
@@ -48,4 +45,41 @@ type Workout struct {
 	Elev     Elev     `bson:"elev"`
 	Location Location `bson:"location"`
 	Footwear Footwear `bson:"footwear"`
+}
+
+type Workouts []Workout
+
+// ANALYTICS
+type Peak struct {
+	Duration  string
+	Pace      string
+	Distance  float64
+	Elevation int
+}
+
+type Total struct {
+	Workouts  int
+	Distance  string
+	Elevation int
+	Duration  string
+	Range     int
+	Streak    int
+}
+
+type TerrainAnalytics struct {
+	Road  string
+	Trail string
+	Gym   string
+}
+
+type FootwearAnalytics struct {
+	Minimal  string
+	Standard string
+}
+
+type Analytics struct {
+	Total    Total
+	Peak     Peak
+	Terrain  TerrainAnalytics
+	Footwear FootwearAnalytics
 }

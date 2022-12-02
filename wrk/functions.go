@@ -1,4 +1,4 @@
-package models
+package wrk
 
 import (
 	"sync"
@@ -7,7 +7,8 @@ import (
 	"trails/logger"
 )
 
-func Analyze(workouts []Workout, log *logger.Logger) Analytics {
+// ANALYZE WORKOUTS
+func (workouts Workouts) Analyze(log *logger.Logger) Analytics {
 
 	// HANDLE NO WORKOUTS
 	if len(workouts) == 0 {

@@ -6,7 +6,7 @@ import (
 	t "text/template"
 	"time"
 	l "trails/logger"
-	"trails/models"
+	"trails/wrk"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -31,15 +31,15 @@ func get(w http.ResponseWriter, r *http.Request, log *l.Logger, tmp *t.Template,
 		return
 	}
 
-	var workouts []models.Workout
-	if err = cursor.All(ctx, &workouts); err != nil {
+	var workouts wrk.Workouts
+	if err = cursor.All(ctx, &w); err != nil {
 		http.Error(w, "Internal Server Error", 500)
 		log.Error(err)
 		return
 	}
 
 	// analyze workouts
-	data := models.Analyze(workouts, log)
+	data := workouts.Analyze(log)
 
 	// return template
 	if err := tmp.ExecuteTemplate(w, "index.html", data); err != nil {

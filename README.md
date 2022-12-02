@@ -1,5 +1,5 @@
 ```
-trails is a simple web tool to analyzing my running performance
+trails is a simple web tool for analyzing running performance
 
 currently it runs on: http://18.192.73.209/
 
@@ -9,4 +9,4 @@ stack:
     Golang, HTML, CSS, Nginx, Systemd, MongoDB, AWS Lightsail
 ```
 
-![alt text](info/trails_demo.jpeg?raw=true)
+![alt text](image/trails_demo.jpeg?raw=true)
