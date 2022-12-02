@@ -32,7 +32,7 @@ func get(w http.ResponseWriter, r *http.Request, log *l.Logger, tmp *t.Template,
 	}
 
 	var workouts wrk.Workouts
-	if err = cursor.All(ctx, &w); err != nil {
+	if err = cursor.All(ctx, &workouts); err != nil {
 		http.Error(w, "Internal Server Error", 500)
 		log.Error(err)
 		return
