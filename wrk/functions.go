@@ -15,14 +15,14 @@ func (workouts Workouts) ParseTotal(log *dep.Logger) (Total, error) {
 		return Total{
 			Days:      0,
 			Workouts:  0,
-			Distance:  0,
+			Distance:  "0",
 			Duration:  "0",
 			Elevation: 0,
 		}, nil
 	}
 
 	// Else
-	distance, elevation, minutes, dates := 0, 0, 0.0, []string{}
+	distance, elevation, minutes, dates := 0.0, 0, 0.0, []string{}
 
 	for _, workout := range workouts {
 		distance += workout.Distance
@@ -41,15 +41,19 @@ func (workouts Workouts) ParseTotal(log *dep.Logger) (Total, error) {
 		Days:      parseDays(dates[0]),
 		Workouts:  numOfWorkouts,
 		Streak:    parseStreak(dates),
-		Distance:  distance,
+		Distance:  formatDistance(distance),
 		Duration:  formatDuration(minutes),
 		Elevation: elevation,
 	}, nil
 }
 
-// FIND BEST WORKOUT
-func (workouts Workouts) FindBest() Workouts {
-	return Workouts{}
+// REVERSE
+func (workouts Workouts) Reverse() Workouts {
+	var reversed []Workout
+	for i := len(workouts) - 1; i >= 0; i-- {
+		reversed = append(reversed, workouts[i])
+	}
+	return reversed
 }
 
 // PARSE DAYS
@@ -114,4 +118,9 @@ func parseStreak(dates []string) int {
 	}
 
 	return longest
+}
+
+// FORMAT DISTANCE
+func formatDistance(distance float64) string {
+	return fmt.Sprintf("%1.f", distance)
 }

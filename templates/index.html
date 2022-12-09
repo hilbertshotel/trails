@@ -22,6 +22,7 @@
             <div>streak</div>
             <div class="stat_val">{{ .Total.Streak }}</div>
         </div>
+        <br>
         <div class="stat">
             <div>distance</div>
             <div class="stat_val">{{ .Total.Distance }}km</div>
@@ -34,78 +35,35 @@
             <div>elevation</div>
             <div class="stat_val">{{ .Total.Elevation }}m</div>
         </div>
-
         <br>
-
-        <!-- BEST WORKOUT -->
-        <div class="section">best workout</div>
-
-        {{ range .Best }} 
-
-            <div class="stat">
-                <div>date</div>
-                <div class="stat_val">{{ .Date }}</div>
-            </div>
-            <div class="stat">
-                <div>distance</div>
-                <div class="stat_val">{{ .Distance }}km</div>
-            </div>
-            <div class="stat">
-                <div>duration</div>
-                <div class="stat_val">{{ .Duration }}</div>
-            </div>
-            <div class="stat">
-                <div>elevation</div>
-                <div class="stat_val">{{ .Elevation }}m</div>
-            </div>
-            <div class="stat">
-                <div>avg pace</div>
-                <div class="stat_val">{{ .AvgPace }}</div>
-            </div>
-            <div class="stat">
-                <div>avg hr</div>
-                <div class="stat_val">{{ .AvgHR }}</div>
-            </div>
-
-            <br>
-            
-        {{ end }}
 
         <!-- WORKOUTS -->
         <div class="section">workouts</div>
 
-        {{ range .Workouts }} 
+        <table>
+            <tr>
+                <td>date</td>
+                <td>distance</td>
+                <td>duration</td>
+                <td>elevation</td>
+                <td>avg pace</td>
+                <td>avg hr</td>
+            </tr>
 
-            <div class="stat">
-                <div>date</div>
-                <div class="stat_val">{{ .Date }}</div>
-            </div>
-            <div class="stat">
-                <div>distance</div>
-                <div class="stat_val">{{ .Distance }}km</div>
-            </div>
-            <div class="stat">
-                <div>duration</div>
-                <div class="stat_val">{{ .Duration }}</div>
-            </div>
-            <div class="stat">
-                <div>elevation</div>
-                <div class="stat_val">{{ .Elevation }}m</div>
-            </div>
-            <div class="stat">
-                <div>avg pace</div>
-                <div class="stat_val">{{ .AvgPace }}</div>
-            </div>
-            <div class="stat">
-                <div>avg hr</div>
-                <div class="stat_val">{{ .AvgHR }}</div>
-            </div>
+            {{ range .Workouts }} 
 
-            <br>
-            
-        {{ end }}
+                <tr>
+                    <td> {{ .Date }} </td>
+                    <td> {{ .Distance }} </td>
+                    <td> {{ .Duration }} </td>
+                    <td> {{ .Elevation }} </td>
+                    <td> {{ .AvgPace }} </td>
+                    <td> {{ .AvgHR }} </td>
+                </tr>
+
+            {{ end }}
+        </table>
 
     </div>
-
 </body>
 </html>

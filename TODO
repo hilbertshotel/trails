@@ -1,0 +1,16 @@
+
+template only info and totals
+
+pull workouts with fetch and place in table dynamically
+
+separate rows of different month by color 
+
+make first table row interactive - when pressed SORT by it
+
+create + button to add new workouts (use direct password instead of login)
+
+fix design
+
+get rid of nginx and serve directly with go?
+
+change README image when done

@@ -43,14 +43,10 @@ func get(w http.ResponseWriter, r *http.Request, d *dep.Dependencies) {
 		return
 	}
 
-	// get best workout
-	best := workouts.FindBest()
-
 	// gather data
 	data := wrk.Data{
 		Total:    total,
-		Best:     best,
-		Workouts: workouts,
+		Workouts: workouts.Reverse(),
 	}
 
 	// return template

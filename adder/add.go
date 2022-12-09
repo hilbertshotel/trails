@@ -12,17 +12,21 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type Workout struct {
-	Date      string  `bson:"date" json:"date"`
-	Distance  int     `bson:"distance" json:"distance"`
-	Duration  string  `bson:"duration" json:"duration"`
-	Elevation int     `bson:"elevation" json:"elevation"`
-	AvgPace   float64 `bson:"avg_pace" json:"avg_pace"`
-	AvgHr     int     `bson:"avg_hr" json:"avg_hr"`
+// type Workout struct {
+// 	Date      string  `bson:"date" json:"date"`
+// 	Distance  int     `bson:"distance" json:"distance"`
+// 	Duration  string  `bson:"duration" json:"duration"`
+// 	Elevation int     `bson:"elevation" json:"elevation"`
+// 	AvgPace   float64 `bson:"avg_pace" json:"avg_pace"`
+// 	AvgHr     int     `bson:"avg_hr" json:"avg_hr"`
+// }
+
+type Data struct {
+	Workouts []interface{} `json:"workouts"`
 }
 
 const (
-	JSON_FILE = "workout.json"
+	JSON_FILE = "workouts.json"
 	MONGO_URI = "mongodb://localhost:27017"
 	DB_NAME   = "trails"
 	COLL_NAME = "workouts"
@@ -47,7 +51,7 @@ func main() {
 	handleError(err)
 
 	// unmarshal file
-	var data Workout
+	var data Data
 	err = json.Unmarshal(raw, &data)
 	handleError(err)
 
@@ -61,7 +65,7 @@ func main() {
 	coll := client.Database(DB_NAME).Collection(COLL_NAME)
 
 	// insert in db
-	_, err = coll.InsertOne(ctx, data)
+	_, err = coll.InsertMany(ctx, data.Workouts)
 	handleError(err)
 
 	fmt.Println("ok")

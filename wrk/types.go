@@ -5,7 +5,7 @@ type Total struct {
 	Days      int
 	Workouts  int
 	Streak    int
-	Distance  int
+	Distance  string
 	Duration  string
 	Elevation int
 }
@@ -13,7 +13,7 @@ type Total struct {
 // WORKOUT
 type Workout struct {
 	Date      string  `bson:"date"`
-	Distance  int     `bson:"distance"`
+	Distance  float64 `bson:"distance"`
 	Duration  string  `bson:"duration"`
 	Elevation int     `bson:"elevation"`
 	AvgPace   float64 `bson:"avg_pace"`
