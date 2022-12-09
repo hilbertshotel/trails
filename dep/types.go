@@ -27,8 +27,9 @@ type Config struct {
 
 // DEPENDENCIES
 type Dependencies struct {
-	Log  *Logger
-	Cfg  *Config
-	Coll *mongo.Collection
-	Tmp  *template.Template
+	Log    *Logger
+	Cfg    *Config
+	Client *mongo.Client
+	Coll   *mongo.Collection
+	Tmp    *template.Template
 }

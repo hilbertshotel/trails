@@ -1,171 +1,117 @@
 package wrk
 
 import (
-	"sync"
+	"fmt"
 	"time"
 	"trails/dep"
-	"trails/lib"
 )
 
-// ANALYZE WORKOUTS
-func (workouts Workouts) Analyze(log *dep.Logger) Analytics {
+// PARSE TOTALS
+func (workouts Workouts) ParseTotal(log *dep.Logger) (Total, error) {
+	numOfWorkouts := len(workouts)
 
-	// HANDLE NO WORKOUTS
-	if len(workouts) == 0 {
-		return Analytics{
-			Total: Total{
-				Workouts:  0,
-				Distance:  "0",
-				Elevation: 0,
-				Duration:  "0m",
-				Range:     0,
-				Streak:    0,
-			},
-			Peak: Peak{
-				Duration:  "0m",
-				Pace:      "0",
-				Distance:  0,
-				Elevation: 0,
-			},
-			Terrain: TerrainAnalytics{
-				Road:  "0%",
-				Trail: "0%",
-				Gym:   "0%",
-			},
-			Footwear: FootwearAnalytics{
-				Minimal:  "0%",
-				Standard: "0%",
-			},
-		}
+	// Handle no workouts scenario
+	if numOfWorkouts == 0 {
+		return Total{
+			Days:      0,
+			Workouts:  0,
+			Distance:  0,
+			Duration:  "0",
+			Elevation: 0,
+		}, nil
 	}
 
-	// HANDLE MULTIPLE WORKOUTS
-	var wg sync.WaitGroup
+	// Else
+	distance, elevation, minutes, dates := 0, 0, 0.0, []string{}
 
-	// calculate totals
-	var total Total
+	for _, workout := range workouts {
+		distance += workout.Distance
+		elevation += workout.Elevation
+		dates = append(dates, workout.Date)
 
-	wg.Add(1)
-	go func(total *Total, wg *sync.WaitGroup) {
-		defer wg.Done()
-
-		var minutes float64
-		var dates []string
-		var dist float64
-
-		for _, w := range workouts {
-			total.Workouts++
-			dist += w.Distance
-			total.Elevation += w.Elev.Gain
-
-			duration, err := time.ParseDuration(w.Duration)
-			if err != nil {
-				log.Error(err)
-				return
-			}
-
-			minutes += duration.Minutes()
-			dates = append(dates, w.Date)
+		duration, err := time.ParseDuration(workout.Duration)
+		if err != nil {
+			log.Error(err)
+			return Total{}, err
 		}
-
-		total.Distance = lib.FormatDistance(dist)
-		total.Duration = lib.FormatDuration(minutes)
-		total.Range = lib.ParseRange(dates[0])
-		total.Streak = lib.ParseStreak(dates)
-
-	}(&total, &wg)
-
-	// calculate peaks
-	var peak Peak
-
-	wg.Add(1)
-	go func(peak *Peak, wg *sync.WaitGroup) {
-		defer wg.Done()
-
-		pace := workouts[0].Pace.Best
-		dist, dur, elev := 0.0, 0.0, 0
-		for _, w := range workouts {
-			duration, err := time.ParseDuration(w.Duration)
-			if err != nil {
-				log.Error(err)
-				return
-			}
-			if duration.Minutes() > dur {
-				dur = duration.Minutes()
-			}
-			if w.Pace.Best < pace {
-				pace = w.Pace.Best
-			}
-			if w.Distance > dist {
-				dist = w.Distance
-			}
-			if w.Elev.Gain > elev {
-				elev = w.Elev.Gain
-			}
-		}
-
-		peak.Duration = lib.FormatDuration(dur)
-		peak.Pace = lib.FormatPace(pace)
-		peak.Distance = dist
-		peak.Elevation = elev
-
-	}(&peak, &wg)
-
-	// calculate terrain
-	var terrain TerrainAnalytics
-
-	wg.Add(1)
-	go func(terrain *TerrainAnalytics, wg *sync.WaitGroup) {
-		defer wg.Done()
-
-		road, trail, gym := 0.0, 0.0, 0.0
-		for _, w := range workouts {
-			switch w.Location.Terrain {
-			case Road:
-				road++
-			case Trail:
-				trail++
-			case Gym:
-				gym++
-			}
-		}
-
-		total := float64(road + trail + gym)
-		terrain.Road = lib.FormatPercent(road / total * 100)
-		terrain.Trail = lib.FormatPercent(trail / total * 100)
-		terrain.Gym = lib.FormatPercent(gym / total * 100)
-
-	}(&terrain, &wg)
-
-	// calculate footwear
-	var footwear FootwearAnalytics
-
-	wg.Add(1)
-	go func(footwear *FootwearAnalytics, wg *sync.WaitGroup) {
-		defer wg.Done()
-
-		mnml, stnd := 0.0, 0.0
-		for _, w := range workouts {
-			switch w.Footwear {
-			case Minimal:
-				mnml++
-			case Standard:
-				stnd++
-			}
-		}
-
-		total := float64(mnml + stnd)
-		footwear.Minimal = lib.FormatPercent(mnml / total * 100)
-		footwear.Standard = lib.FormatPercent(stnd / total * 100)
-
-	}(&footwear, &wg)
-
-	wg.Wait()
-
-	return Analytics{
-		Total:    total,
-		Peak:     peak,
-		Terrain:  terrain,
-		Footwear: footwear,
+		minutes += duration.Minutes()
 	}
+
+	return Total{
+		Days:      parseDays(dates[0]),
+		Workouts:  numOfWorkouts,
+		Streak:    parseStreak(dates),
+		Distance:  distance,
+		Duration:  formatDuration(minutes),
+		Elevation: elevation,
+	}, nil
+}
+
+// FIND BEST WORKOUT
+func (workouts Workouts) FindBest() Workouts {
+	return Workouts{}
+}
+
+// PARSE DAYS
+func parseDays(date string) int {
+	start, _ := time.Parse(time.RFC822, date+" 10:00 MST")
+	end := time.Now()
+	return int(end.Sub(start).Hours() / 24)
+}
+
+// FORMAT DURATION
+func formatDuration(minutes float64) string {
+	mins := int(minutes)
+	if mins < 60 {
+		return fmt.Sprintf("%vm", mins)
+	} else if mins < 1440 {
+		h := mins / 60
+		m := mins % 60
+		if m == 0 {
+			return fmt.Sprintf("%vh", h)
+		}
+		return fmt.Sprintf("%vh%vm", h, m)
+	} else {
+		d := mins / 1440
+		rd := mins % 1440
+		h := rd / 60
+		m := rd % 60
+		if m == 0 && h == 0 {
+			return fmt.Sprintf("%vd", d)
+		} else if m == 0 {
+			return fmt.Sprintf("%vd%vh", d, h)
+		} else if h == 0 {
+			return fmt.Sprintf("%vd%vm", d, m)
+		}
+		return fmt.Sprintf("%vd%vh%vm", d, h, m)
+	}
+}
+
+// PARSE STREAK
+func parseStreak(dates []string) int {
+
+	if len(dates) == 1 {
+		return 1
+	}
+
+	longest, streak := 0, 1
+	prev, _ := time.Parse(time.RFC822, dates[0]+" 10:00 MST")
+
+	for i := 1; i < len(dates); i++ {
+		current, _ := time.Parse(time.RFC822, dates[i]+" 10:00 MST")
+
+		if prev.Add(24*time.Hour).Equal(current) || prev.Equal(current) {
+			streak++
+		} else {
+			streak = 1
+		}
+
+		if longest < streak {
+			longest = streak
+		}
+
+		prev = current
+	}
+
+	return longest
 }

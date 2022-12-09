@@ -36,8 +36,22 @@ func get(w http.ResponseWriter, r *http.Request, d *dep.Dependencies) {
 		return
 	}
 
-	// analyze workouts
-	data := workouts.Analyze(d.Log)
+	// get totals
+	total, err := workouts.ParseTotal(d.Log)
+	if err != nil {
+		d.Log.Error(err)
+		return
+	}
+
+	// get best workout
+	best := workouts.FindBest()
+
+	// gather data
+	data := wrk.Data{
+		Total:    total,
+		Best:     best,
+		Workouts: workouts,
+	}
 
 	// return template
 	if err := d.Tmp.ExecuteTemplate(w, "index.html", data); err != nil {

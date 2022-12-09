@@ -1,10 +1,8 @@
 {
-  "date": "01 Dec 22",
-  "duration": "28m",
-  "distance": 5.00,
-  "pace": { "avg": 5.35, "best": 5.22 },
-  "hr": { "avg": 144, "max": 159 },
-  "elev": { "gain": 0, "loss": 0 },
-  "location": { "name": "Sofia Krivulia", "terrain": "trail" },
-  "footwear": "standard"
+  "date": "09 Dec 22",
+  "distance": 10,
+  "duration": "1h4m",
+  "elevation": 14,
+  "avg_pace": 6.26,
+  "avg_hr": 134
 }

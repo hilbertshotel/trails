@@ -7,11 +7,19 @@ import (
 	"io/ioutil"
 	"os"
 	"time"
-	"trails/adder/model"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+
+type Workout struct {
+	Date      string  `bson:"date" json:"date"`
+	Distance  int     `bson:"distance" json:"distance"`
+	Duration  string  `bson:"duration" json:"duration"`
+	Elevation int     `bson:"elevation" json:"elevation"`
+	AvgPace   float64 `bson:"avg_pace" json:"avg_pace"`
+	AvgHr     int     `bson:"avg_hr" json:"avg_hr"`
+}
 
 const (
 	JSON_FILE = "workout.json"
@@ -39,7 +47,7 @@ func main() {
 	handleError(err)
 
 	// unmarshal file
-	var data model.Workout
+	var data Workout
 	err = json.Unmarshal(raw, &data)
 	handleError(err)
 

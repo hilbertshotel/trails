@@ -1,4 +1,4 @@
-package lib
+package wrk
 
 import "testing"
 
@@ -37,7 +37,7 @@ func TestParseStreak(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-			result := ParseStreak(test.Dates)
+			result := parseStreak(test.Dates)
 			if result != test.Expected {
 				t.Errorf("expected: %v, got: %v", test.Expected, result)
 			}

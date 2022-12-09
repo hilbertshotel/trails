@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"net/http"
 	"time"
 	"trails/dep"
@@ -34,4 +35,5 @@ func main() {
 
 	// shutdown
 	d.Log.Error(<-ech)
+	d.Client.Disconnect(context.Background())
 }

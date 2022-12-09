@@ -18,7 +18,7 @@ import (
 func Load() (*Dependencies, error) {
 	log := initLogger()
 	cfg := initConfig()
-	coll, err := initDatabase(cfg)
+	coll, client, err := initDatabase(cfg)
 	if err != nil {
 		return nil, err
 	}
@@ -28,10 +28,11 @@ func Load() (*Dependencies, error) {
 	}
 
 	return &Dependencies{
-		Log:  log,
-		Cfg:  cfg,
-		Coll: coll,
-		Tmp:  tmp,
+		Log:    log,
+		Cfg:    cfg,
+		Client: client,
+		Coll:   coll,
+		Tmp:    tmp,
 	}, nil
 }
 
@@ -54,18 +55,17 @@ func initLogger() *Logger {
 }
 
 // INITIALIZE DATABASE
-func initDatabase(cfg *Config) (*mongo.Collection, error) {
+func initDatabase(cfg *Config) (*mongo.Collection, *mongo.Client, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(cfg.Mongo.Uri))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	defer client.Disconnect(ctx)
 
 	coll := client.Database(cfg.Mongo.Database).Collection(cfg.Mongo.Collection)
-	return coll, nil
+	return coll, client, nil
 }
 
 // INITIALIZE TEMPLATES
