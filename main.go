@@ -1,50 +1,24 @@
 package main
 
 import (
-	"context"
 	"net/http"
-	"text/template"
 	"time"
-	"trails/config"
+	"trails/dep"
 	"trails/handlers"
-	"trails/logger"
-
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func main() {
 
-	// logging
-	log := logger.Init()
-
-	// config
-	cfg := config.Init()
-
-	// database
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
-	defer cancel()
-
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(cfg.Mongo.Uri))
+	// Load Dependencies
+	d, err := dep.Load()
 	if err != nil {
-		log.Error(err)
-		return
-	}
-	defer client.Disconnect(ctx)
-
-	coll := client.Database(cfg.Mongo.Database).Collection(cfg.Mongo.Coll)
-
-	// templates
-	tmp, err := template.ParseGlob(cfg.Template)
-	if err != nil {
-		log.Error(err)
-		return
+		panic(err)
 	}
 
 	// server
 	server := http.Server{
-		Addr:         cfg.HostAddr,
-		Handler:      handlers.Mux(log, tmp, coll),
+		Addr:         d.Cfg.HostAddr,
+		Handler:      handlers.Mux(d),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
@@ -54,10 +28,10 @@ func main() {
 
 	// start
 	go func(ch chan error) {
-		log.Ok("Listening on " + cfg.HostAddr)
+		d.Log.Ok("Service listening @ " + d.Cfg.HostAddr)
 		ch <- server.ListenAndServe()
 	}(ech)
 
 	// shutdown
-	log.Error(<-ech)
+	d.Log.Error(<-ech)
 }

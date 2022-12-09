@@ -3,12 +3,12 @@ package wrk
 import (
 	"sync"
 	"time"
+	"trails/dep"
 	"trails/lib"
-	"trails/logger"
 )
 
 // ANALYZE WORKOUTS
-func (workouts Workouts) Analyze(log *logger.Logger) Analytics {
+func (workouts Workouts) Analyze(log *dep.Logger) Analytics {
 
 	// HANDLE NO WORKOUTS
 	if len(workouts) == 0 {
