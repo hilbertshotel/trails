@@ -6,8 +6,8 @@ import (
 	"trails/dep"
 )
 
-// PARSE TOTALS
-func (workouts Workouts) ParseTotal(log *dep.Logger) (Total, error) {
+// CALCULATE TOTALS
+func (workouts Workouts) CalcTotals(log *dep.Logger) (Total, error) {
 	numOfWorkouts := len(workouts)
 
 	// Handle no workouts scenario
@@ -45,15 +45,6 @@ func (workouts Workouts) ParseTotal(log *dep.Logger) (Total, error) {
 		Duration:  formatDuration(minutes),
 		Elevation: elevation,
 	}, nil
-}
-
-// REVERSE
-func (workouts Workouts) Reverse() Workouts {
-	var reversed []Workout
-	for i := len(workouts) - 1; i >= 0; i-- {
-		reversed = append(reversed, workouts[i])
-	}
-	return reversed
 }
 
 // PARSE DAYS

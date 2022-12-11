@@ -21,10 +21,3 @@ type Workout struct {
 }
 
 type Workouts []Workout
-
-// DATA
-type Data struct {
-	Total    Total
-	Best     Workouts
-	Workouts Workouts
-}

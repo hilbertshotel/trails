@@ -1,69 +1,44 @@
 {{ template "header.html" . }}
 
-    <div id="box">
+<main>
 
-        <!-- HEADER -->
-        <div id="header">
-        <span id="app_name">trails</span>
-        </div>
+    <h1>Trails</h1>
+    <h2>Total</h2>
 
-        <!-- TOTALS -->
-        <div class="section">total</div>
+    <table>
+        <tr>
+            <td class="column_name">days</td>
+            <td class="column_name">workouts</td>
+            <td class="column_name">streak</td>
+            <td class="column_name">distance</td>
+            <td class="column_name">duration</td>
+            <td class="column_name">elevation</td>
+        </tr>
+        <tr>
+            <td> {{ .Days }} </td>
+            <td> {{ .Workouts }} </td>
+            <td> {{ .Streak }} </td>
+            <td> {{ .Distance }}km </td>
+            <td> {{ .Duration }} </td>
+            <td> {{ .Elevation }}m </td>
+        </tr>
+    </table>
 
-        <div class="stat"> 
-            <div>days</div>
-            <div class="stat_val">{{ .Total.Days }}</div>
-        </div>
-        <div class="stat">
-            <div>workouts</div>
-            <div class="stat_val">{{ .Total.Workouts }}</div>
-        </div>
-        <div class="stat">
-            <div>streak</div>
-            <div class="stat_val">{{ .Total.Streak }}</div>
-        </div>
-        <br>
-        <div class="stat">
-            <div>distance</div>
-            <div class="stat_val">{{ .Total.Distance }}km</div>
-        </div>
-        <div class="stat">
-            <div>duration</div>
-            <div class="stat_val">{{ .Total.Duration }}</div>
-        </div>
-        <div class="stat">
-            <div>elevation</div>
-            <div class="stat_val">{{ .Total.Elevation }}m</div>
-        </div>
-        <br>
+    <h2>Workouts</h2>
 
-        <!-- WORKOUTS -->
-        <div class="section">workouts</div>
+    <table id="workouts">
+        <tr>
+            <td class="column_name" id="date_column">date</td>
+            <td class="column_name">distance</td>
+            <td class="column_name">duration</td>
+            <td class="column_name">elevation</td>
+            <td class="column_name">avg pace</td>
+            <td class="column_name">avg hr</td>
+        </tr>
+    </table>
 
-        <table>
-            <tr>
-                <td>date</td>
-                <td>distance</td>
-                <td>duration</td>
-                <td>elevation</td>
-                <td>avg pace</td>
-                <td>avg hr</td>
-            </tr>
+</main>
 
-            {{ range .Workouts }} 
-
-                <tr>
-                    <td> {{ .Date }} </td>
-                    <td> {{ .Distance }} </td>
-                    <td> {{ .Duration }} </td>
-                    <td> {{ .Elevation }} </td>
-                    <td> {{ .AvgPace }} </td>
-                    <td> {{ .AvgHR }} </td>
-                </tr>
-
-            {{ end }}
-        </table>
-
-    </div>
+<script src="/static/script.js"></script>
 </body>
 </html>

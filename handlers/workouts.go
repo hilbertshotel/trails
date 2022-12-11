@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"time"
 	"trails/dep"
@@ -10,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func get(w http.ResponseWriter, r *http.Request, d *dep.Dependencies) {
+func workouts(w http.ResponseWriter, r *http.Request, d *dep.Dependencies) {
 
 	// handle method
 	if r.Method != http.MethodGet {
@@ -36,18 +37,15 @@ func get(w http.ResponseWriter, r *http.Request, d *dep.Dependencies) {
 		return
 	}
 
-	// get totals
-	totals, err := workouts.CalcTotals(d.Log)
+	// marshal workouts
+	response, err := json.Marshal(workouts)
 	if err != nil {
-		d.Log.Error(err)
-		return
-	}
-
-	// return template
-	if err := d.Tmp.ExecuteTemplate(w, "index.html", totals); err != nil {
 		http.Error(w, "Internal Server Error", 500)
 		d.Log.Error(err)
 		return
 	}
 
+	// respond
+	w.Header().Set("content-type", "application/json")
+	w.Write(response)
 }

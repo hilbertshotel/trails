@@ -1,15 +1,11 @@
 
-template only info and totals
-
-pull workouts with fetch and place in table dynamically
-
 separate rows of different month by color 
 
 make first table row interactive - when pressed SORT by it
 
 create + button to add new workouts (use direct password instead of login)
 
-fix design
+create a helper script to dump all workouts from db into json file
 
 get rid of nginx and serve directly with go?
 

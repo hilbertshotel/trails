@@ -15,5 +15,9 @@ func Mux(d *dep.Dependencies) *http.ServeMux {
 		get(w, r, d)
 	})
 
+	mux.HandleFunc("/workouts", func(w http.ResponseWriter, r *http.Request) {
+		workouts(w, r, d)
+	})
+
 	return mux
 }
