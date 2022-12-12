@@ -8,8 +8,9 @@ import (
 
 // LOGGER
 type Logger struct {
-	Error func(error)
-	Ok    func(string)
+	UserError func(string)
+	Error     func(error)
+	Ok        func(string)
 }
 
 // CONFIG

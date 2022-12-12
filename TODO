@@ -1,7 +1,10 @@
 
-separate rows of different month by color 
+finish wrk.Sort() function for all types of workouts
 
-make first table row interactive - when pressed SORT by it
+open web socket in js and give connection to all sorter functions
+to get sorted workouts directly from backend
+
+separate rows of different month by color 
 
 create + button to add new workouts (use direct password instead of login)
 
@@ -10,6 +13,3 @@ create a helper script to dump all workouts from db into json file
 get rid of nginx and serve directly with go?
 
 change README image when done
-
-make distance float .00 ?
-make duration use seconds as well

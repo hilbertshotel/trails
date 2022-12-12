@@ -21,19 +21,3 @@ type Workout struct {
 }
 
 type Workouts []Workout
-
-// SORTED DATA
-type SortedData struct {
-	DateAsc       Workouts
-	DateDesc      Workouts
-	DistanceAsc   Workouts
-	DistanceDesc  Workouts
-	DurationAsc   Workouts
-	DurationDesc  Workouts
-	ElevationAsc  Workouts
-	ElevationDesc Workouts
-	PaceAsc       Workouts
-	PaceDesc      Workouts
-	HRAsc         Workouts
-	HRDesc        Workouts
-}

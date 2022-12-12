@@ -2,14 +2,14 @@ package wrk
 
 import "testing"
 
-type Test struct {
+type StreakTest struct {
 	Dates    []string
 	Expected int
 }
 
 func TestParseStreak(t *testing.T) {
 
-	tests := map[string]Test{
+	tests := map[string]StreakTest{
 		"test 0": {[]string{"12 Apr 22", "13 Apr 22"}, 2},
 		"test 1": {[]string{"12 Apr 22", "13 May 22"}, 1},
 		"test 3": {[]string{"12 Apr 22", "15 Apr 22", "16 Apr 22"}, 2},

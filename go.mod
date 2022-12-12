@@ -2,7 +2,10 @@ module trails
 
 go 1.18
 
-require go.mongodb.org/mongo-driver v1.9.0
+require (
+	github.com/gorilla/websocket v1.5.0
+	go.mongodb.org/mongo-driver v1.9.0
+)
 
 require (
 	github.com/go-stack/stack v1.8.0 // indirect

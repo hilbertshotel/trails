@@ -51,6 +51,12 @@ func initLogger() *Logger {
 		Ok: func(msg string) {
 			okLog.Println(msg)
 		},
+
+		UserError: func(err string) {
+			_, file, line, _ := runtime.Caller(1)
+			msg := fmt.Sprintf("(%v %v) %v", filepath.Base(file), line, err)
+			errLog.Println(msg)
+		},
 	}
 }
 
