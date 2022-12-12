@@ -55,11 +55,6 @@ td {
     color: var(--light-gray);
 }
 
-.sorter {
+#date, #distance, #duration, #elevation, #pace, #hr {
     cursor: pointer;
-}
-
-#date_column {
-    background-color: var(--turquoise);
-    color: var(--brown);
 }

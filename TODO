@@ -10,3 +10,6 @@ create a helper script to dump all workouts from db into json file
 get rid of nginx and serve directly with go?
 
 change README image when done
+
+make distance float .00 ?
+make duration use seconds as well

@@ -41,7 +41,7 @@ func (workouts Workouts) CalcTotals(log *dep.Logger) (Total, error) {
 		Days:      parseDays(dates[0]),
 		Workouts:  numOfWorkouts,
 		Streak:    parseStreak(dates),
-		Distance:  formatDistance(distance),
+		Distance:  fmt.Sprintf("%1.f", distance),
 		Duration:  formatDuration(minutes),
 		Elevation: elevation,
 	}, nil
@@ -109,9 +109,4 @@ func parseStreak(dates []string) int {
 	}
 
 	return longest
-}
-
-// FORMAT DISTANCE
-func formatDistance(distance float64) string {
-	return fmt.Sprintf("%1.f", distance)
 }

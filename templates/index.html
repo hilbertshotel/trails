@@ -2,43 +2,43 @@
 
 <main>
 
-    <h1>Trails</h1>
-    <h2>Total</h2>
+<h1>Trails</h1>
+<h2>Total</h2>
 
-    <table>
-        <tr>
-            <td class="column_name">days</td>
-            <td class="column_name">workouts</td>
-            <td class="column_name">streak</td>
-            <td class="column_name">distance</td>
-            <td class="column_name">duration</td>
-            <td class="column_name">elevation</td>
-        </tr>
-        <tr>
-            <td> {{ .Days }} </td>
-            <td> {{ .Workouts }} </td>
-            <td> {{ .Streak }} </td>
-            <td> {{ .Distance }}km </td>
-            <td> {{ .Duration }} </td>
-            <td> {{ .Elevation }}m </td>
-        </tr>
-    </table>
+<table>
+    <tr>
+        <td class="column_name">days</td>
+        <td class="column_name">workouts</td>
+        <td class="column_name">streak</td>
+        <td class="column_name">distance</td>
+        <td class="column_name">duration</td>
+        <td class="column_name">elevation</td>
+    </tr>
+    <tr>
+        <td> {{ .Days }} </td>
+        <td> {{ .Workouts }} </td>
+        <td> {{ .Streak }} </td>
+        <td> {{ .Distance }}km </td>
+        <td> {{ .Duration }} </td>
+        <td> {{ .Elevation }}m </td>
+    </tr>
+</table>
 
-    <h2>Workouts</h2>
+<h2>Workouts</h2>
 
-    <table id="workouts">
-        <tr>
-            <td class="column_name" id="date_column">date</td>
-            <td class="column_name">distance</td>
-            <td class="column_name">duration</td>
-            <td class="column_name">elevation</td>
-            <td class="column_name">avg pace</td>
-            <td class="column_name">avg hr</td>
-        </tr>
-    </table>
+<table id="workouts">
+    <tr id=""first_row>
+        <td class="column_name" id="date">date</td>
+        <td class="column_name" id="distance">distance</td>
+        <td class="column_name" id="duration">duration</td>
+        <td class="column_name" id="elevation">elevation</td>
+        <td class="column_name" id="pace">avg pace</td>
+        <td class="column_name" id="hr">avg hr</td>
+    </tr>
+</table>
 
 </main>
 
-<script src="/static/script.js"></script>
+<script src="/static/script.js" type="application/javascript"></script>
 </body>
 </html>

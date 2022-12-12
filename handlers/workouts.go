@@ -37,8 +37,11 @@ func workouts(w http.ResponseWriter, r *http.Request, d *dep.Dependencies) {
 		return
 	}
 
+	// sort workouts
+	data := workouts.Sort()
+
 	// marshal workouts
-	response, err := json.Marshal(workouts)
+	response, err := json.Marshal(data)
 	if err != nil {
 		http.Error(w, "Internal Server Error", 500)
 		d.Log.Error(err)
