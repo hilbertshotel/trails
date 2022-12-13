@@ -17,11 +17,12 @@ func Mux(d *dep.Dependencies) *http.ServeMux {
 		index(w, r, d)
 	})
 
-	// sorting handler
-	mux.HandleFunc("/sort/", func(w http.ResponseWriter, r *http.Request) {
-		sort(w, r, d)
+	// send web socket address to client
+	mux.HandleFunc("/wsa", func(w http.ResponseWriter, r *http.Request) {
+		wsa(w, r, d)
 	})
 
+	// sorting handler
 	mux.HandleFunc("/sorter", func(w http.ResponseWriter, r *http.Request) {
 		sorter(w, r, d)
 	})

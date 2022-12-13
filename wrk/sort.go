@@ -1,34 +1,22 @@
 package wrk
 
-import (
-	"sort"
-	"time"
-)
+func (workouts Workouts) Sort(args map[string]string) Workouts {
 
-func (workouts Workouts) Sort(argument string) (Workouts, Workouts) {
+	// make copy of workouts slice
+	sortedWorkouts := make([]Workout, len(workouts))
+	copy(sortedWorkouts, workouts)
 
-	// make slice copies
-	asc := make([]Workout, len(workouts))
-	copy(asc, workouts)
-
-	desc := make([]Workout, len(workouts))
-	copy(desc, workouts)
-
-	switch argument {
+	switch args["name"] {
 
 	// SORT BY DATE
 	case "date":
-		sort.Slice(asc, func(i, j int) bool {
-			a, _ := time.Parse("02 Jan 06", workouts[i].Date)
-			b, _ := time.Parse("02 Jan 06", workouts[j].Date)
-			return a.Before(b)
-		})
-		sort.Slice(desc, func(i, j int) bool {
-			a, _ := time.Parse("02 Jan 06", workouts[j].Date)
-			b, _ := time.Parse("02 Jan 06", workouts[i].Date)
-			return a.Before(b)
-		})
-		return asc, desc
+
+		switch args["direction"] {
+		case "asc":
+			return workouts
+		case "desc":
+			return workouts.reverse()
+		}
 
 	// SORT BY NUMBER
 	case "distance", "elevation", "pace", "hr":
@@ -37,5 +25,18 @@ func (workouts Workouts) Sort(argument string) (Workouts, Workouts) {
 	case "duration":
 	}
 
-	return nil, nil
+	return nil
+}
+
+// REVERSE WORKOUTS
+func (workouts Workouts) reverse() Workouts {
+	wrkLen := len(workouts)
+	reversedWorkouts := make(Workouts, wrkLen)
+
+	for i, workout := range workouts {
+		j := wrkLen - i - 1
+		reversedWorkouts[j] = workout
+	}
+
+	return reversedWorkouts
 }

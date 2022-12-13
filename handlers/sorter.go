@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 	"trails/dep"
@@ -31,7 +32,8 @@ func sorter(w http.ResponseWriter, r *http.Request, d *dep.Dependencies) {
 	for {
 
 		// Wait for sorting argument
-		_, arg, err := conn.ReadMessage()
+		var sortArgs map[string]string
+		err := conn.ReadJSON(&sortArgs)
 		if err != nil {
 			http.Error(w, "Internal Server Error", 500)
 			d.Log.Error(err)
@@ -56,21 +58,22 @@ func sorter(w http.ResponseWriter, r *http.Request, d *dep.Dependencies) {
 			return
 		}
 
+		fmt.Println("-------- unsorted --------")
+		fmt.Println(workouts)
+
 		// Sort workouts by argument
-		asc, desc := workouts.Sort(string(arg))
-		if asc == nil {
+		sortedWorkouts := workouts.Sort(sortArgs)
+		if sortedWorkouts == nil {
 			http.Error(w, "Internal Server Error", 500)
 			d.Log.UserError("Unsupported sorting argument")
 			return
 		}
 
-		data := map[string]wrk.Workouts{
-			"asc":  asc,
-			"desc": desc,
-		}
+		fmt.Println("------- sorted ---------")
+		fmt.Println(sortedWorkouts)
 
 		// Return sorted data as JSON
-		err = conn.WriteJSON(data)
+		err = conn.WriteJSON(sortedWorkouts)
 		if err != nil {
 			http.Error(w, "Internal Server Error", 500)
 			d.Log.Error(err)

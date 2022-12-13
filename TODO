@@ -1,8 +1,7 @@
 
 finish wrk.Sort() function for all types of workouts
 
-open web socket in js and give connection to all sorter functions
-to get sorted workouts directly from backend
+SORTER backend function should not return http.Error - instead return the standard workouts and some error msg
 
 separate rows of different month by color 
 
