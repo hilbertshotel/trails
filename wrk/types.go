@@ -10,14 +10,20 @@ type Total struct {
 	Elevation int
 }
 
-// WORKOUT
+// WORKOUT BACKEND
+type Duration struct {
+	Front float64 `json:"front"`
+	Back  string  `json:"back"`
+}
+
 type Workout struct {
-	Date      string  `bson:"date"`
-	Distance  float64 `bson:"distance"`
-	Duration  int     `bson:"duration"`
-	Elevation int     `bson:"elevation"`
-	AvgPace   float64 `bson:"avg_pace"`
-	AvgHR     int     `bson:"avg_hr"`
+	Id        int      `json:"id"`
+	Date      string   `json:"date"`
+	Distance  float64  `json:"distance"`
+	Duration  Duration `json:"duration"`
+	Elevation int      `json:"elevation"`
+	AvgPace   float64  `json:"avgPace"`
+	AvgHR     int      `json:"avgHR"`
 }
 
 type Workouts []Workout

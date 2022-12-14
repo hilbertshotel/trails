@@ -10,6 +10,3 @@ stack:
 ```
 
 ![alt text](misc/image/trails_demo.jpeg?raw=true)
-
-win: "user=postgres dbname=uncle password=postgres sslmode=disable"
-unix: "user=postgres dbname=uncle sslmode=disable host=/run/postgresql"

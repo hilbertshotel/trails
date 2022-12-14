@@ -1,35 +1,28 @@
 package main
 
 import (
-	"context"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
-	"time"
 
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	_ "github.com/lib/pq"
 )
 
-// type Workout struct {
-// 	Date      string  `bson:"date" json:"date"`
-// 	Distance  int     `bson:"distance" json:"distance"`
-// 	Duration  string  `bson:"duration" json:"duration"`
-// 	Elevation int     `bson:"elevation" json:"elevation"`
-// 	AvgPace   float64 `bson:"avg_pace" json:"avg_pace"`
-// 	AvgHr     int     `bson:"avg_hr" json:"avg_hr"`
-// }
-
-type Data struct {
-	Workouts []interface{} `json:"workouts"`
+type Workout struct {
+	Date      string  `json:"date"`
+	Distance  float64 `json:"distance"`
+	Duration  string  `json:"duration"`
+	Elevation int     `json:"elevation"`
+	AvgPace   float64 `json:"avg_pace"`
+	AvgHR     int     `json:"avg_hr"`
 }
+type Workouts []Workout
 
 const (
 	JSON_FILE = "workouts.json"
-	MONGO_URI = "mongodb://localhost:27017"
-	DB_NAME   = "trails"
-	COLL_NAME = "workouts"
+	CONN_STR  = "user=postgres dbname=trails password=postgres sslmode=disable"
 )
 
 func handleError(err error) {
@@ -51,22 +44,24 @@ func main() {
 	handleError(err)
 
 	// unmarshal file
-	var data Data
-	err = json.Unmarshal(raw, &data)
+	var jsonData map[string]Workouts
+	err = json.Unmarshal(raw, &jsonData)
 	handleError(err)
+	workouts := jsonData["workouts"]
 
 	// open db
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
-	defer cancel()
-
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(MONGO_URI))
+	db, err := sql.Open("postgres", CONN_STR)
 	handleError(err)
-	defer client.Disconnect(ctx)
-	coll := client.Database(DB_NAME).Collection(COLL_NAME)
+	defer db.Close()
 
 	// insert in db
-	_, err = coll.InsertMany(ctx, data.Workouts)
-	handleError(err)
+	for _, workout := range workouts {
+		_, err = db.Exec(`INSERT INTO workouts
+		(date, distance, duration, elevation, avg_pace, avg_hr)
+		VALUES ($1, $2, $3, $4, $5, $6)`, workout.Date, workout.Distance,
+			workout.Duration, workout.Elevation, workout.AvgPace, workout.AvgHR)
+		handleError(err)
+	}
 
 	fmt.Println("ok")
 }

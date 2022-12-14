@@ -1,9 +1,13 @@
 package wrk
 
-import "database/sql"
+import (
+	"database/sql"
+	"sort"
+)
 
 func Load(db *sql.DB) (Workouts, error) {
-	query := "SELECT date, distance, duration, elevation, avg_pace, avg_hr FROM workouts"
+	// load workouts from database
+	query := "SELECT * FROM workouts"
 	rows, err := db.Query(query)
 	if err != nil {
 		return nil, err
@@ -14,13 +18,18 @@ func Load(db *sql.DB) (Workouts, error) {
 	for rows.Next() {
 		var workout Workout
 
-		err = rows.Scan(&workout.Date, &workout.Distance, &workout.Duration,
+		err = rows.Scan(&workout.Id, &workout.Date, &workout.Distance, &workout.Duration.Back,
 			&workout.Elevation, &workout.AvgPace, &workout.AvgHR)
 		if err != nil {
 			return nil, err
 		}
 		workouts = append(workouts, workout)
 	}
+
+	// sort workouts by id
+	sort.Slice(workouts, func(i, j int) bool {
+		return workouts[i].Id < workouts[j].Id
+	})
 
 	return workouts, nil
 }

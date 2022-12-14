@@ -29,7 +29,7 @@ func (workouts Workouts) CalcTotals(log *dep.Logger) (Total, error) {
 		elevation += workout.Elevation
 		dates = append(dates, workout.Date)
 
-		duration, err := time.ParseDuration(workout.Duration)
+		duration, err := time.ParseDuration(workout.Duration.Back)
 		if err != nil {
 			log.Error(err)
 			return Total{}, err

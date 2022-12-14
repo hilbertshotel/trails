@@ -4,10 +4,10 @@ CREATE DATABASE trails;
 
 CREATE TABLE workouts (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    date VARCHAR(10) NOT NULL,      
-	distance NUMERIC(2) NOT NULL,
-    duration INT NOT NULL, -- seconds
+    date VARCHAR(30) NOT NULL,      
+	distance FLOAT NOT NULL,
+    duration VARCHAR(30) NOT NULL,
     elevation INT NOT NULL,
-    avg_pace NUMERIC(2) NOT NULL,
+    avg_pace FLOAT NOT NULL,
     avg_hr INT NOT NULL
 );

@@ -16,7 +16,7 @@ func main() {
 	}
 	defer d.DB.Close()
 
-	// server
+	// Create Server
 	server := http.Server{
 		Addr:         d.Cfg.HostAddr,
 		Handler:      handlers.Mux(d),
@@ -24,15 +24,15 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 	}
 
-	// channels
+	// Start Channels
 	ech := make(chan error)
 
-	// start
+	// Start Server
 	go func(ch chan error) {
 		d.Log.Ok("Service listening @ " + d.Cfg.HostAddr)
 		ch <- server.ListenAndServe()
 	}(ech)
 
-	// shutdown
+	// Shutdown
 	d.Log.Error(<-ech)
 }

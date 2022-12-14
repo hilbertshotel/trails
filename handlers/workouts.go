@@ -9,14 +9,22 @@ import (
 
 func workouts(w http.ResponseWriter, r *http.Request, d *dep.Dependencies) {
 
-	// handle method
+	// Handle method
 	if r.Method != http.MethodGet {
 		http.NotFound(w, r)
 		return
 	}
 
-	// load workouts from db
+	// Load workouts from db
 	workouts, err := wrk.Load(d.DB)
+	if err != nil {
+		http.Error(w, "Internal Server Error", 500)
+		d.Log.Error(err)
+		return
+	}
+
+	// Turn duration to seconds for easier frontend sorting
+	err = (&workouts).ParseDuration()
 	if err != nil {
 		http.Error(w, "Internal Server Error", 500)
 		d.Log.Error(err)

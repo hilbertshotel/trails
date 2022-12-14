@@ -46,41 +46,39 @@ const clearTable = (table) => {
 // ================================================================================
 const loadSorters = (row, table, workouts) => {
     // date (comes already sorted)
+    const workoutsByDate = workouts.slice()
     const date = document.getElementById("date")
-    date.onclick = () => { sortAndLoad(row, table, date, workouts) }
+    date.onclick = () => { sortAndLoad(row, table, date, workoutsByDate) }
 
     // distance
     const distance = document.getElementById("distance")
-    workouts.sort((a, b) => { return a.Distance - b.Distance })
-    distance.onclick = () => { sortAndLoad(row, table, distance, workouts) }
+    const workoutsByDist = workouts.slice()
+    workoutsByDist.sort((a, b) => { return a.distance - b.distance })
+    distance.onclick = () => { sortAndLoad(row, table, distance, workoutsByDist) }
 
     // duration
     const duration = document.getElementById("duration")
-    duration.onclick = () => { sortAndLoad(row, table, duration, sortDuration(workouts)) }
+    const workoutsByDur = workouts.slice()
+    workoutsByDur.sort((a, b) => { return a.duration.front - b.duration.front })
+    duration.onclick = () => { sortAndLoad(row, table, duration, workoutsByDur) }
 
     // elevation
     const elevation = document.getElementById("elevation")
-    workouts.sort((a, b) => { return a.Elevation - b.Elevation })
-    elevation.onclick = () => { sortAndLoad(row, table, elevation, workouts) }
+    const workoutsByElev = workouts.slice()
+    workoutsByElev.sort((a, b) => { return a.elevation - b.elevation })
+    elevation.onclick = () => { sortAndLoad(row, table, elevation, workoutsByElev) }
 
     // pace
     const pace = document.getElementById("pace")
-    workouts.sort((a, b) => { return a.AvgPace - b.AvgPace })
-    pace.onclick = () => { sortAndLoad(row, table, pace, workouts) }
+    const workoutsByPace = workouts.slice()
+    workoutsByPace.sort((a, b) => { return a.avgPace - b.avgPace })
+    pace.onclick = () => { sortAndLoad(row, table, pace, workoutsByPace) }
 
     // hr
     const hr = document.getElementById("hr")
-    workouts.sort((a, b) => { return a.AvgHR - b.AvgHR })
-    hr.onclick = () => { sortAndLoad(row, table, hr, workouts) }
-}
-
-const sortDuration = (workouts) => {
-    workouts.sort((a, b) => {
-        
-
-        return a.Elevation - b.Elevation
-    })
-    return workouts
+    const workoutsByHR = workouts.slice()
+    workoutsByHR.sort((a, b) => { return a.avgHR - b.avgHR })
+    hr.onclick = () => { sortAndLoad(row, table, hr, workoutsByHR) }
 }
 
 // LOAD WORKOUTS
@@ -88,12 +86,12 @@ const sortDuration = (workouts) => {
 const loadWorkouts = (table, workouts) => {
     for (const workout of workouts) {
         const tr = document.createElement("tr")
-        addRowData(tr, workout.Date)
-        addRowData(tr, `${workout.Distance}km`)
-        addRowData(tr, workout.Duration)
-        addRowData(tr, `${workout.Elevation}m`)
-        addRowData(tr, workout.AvgPace)
-        addRowData(tr, workout.AvgHR)
+        addRowData(tr, workout.date)
+        addRowData(tr, `${workout.distance}km`)
+        addRowData(tr, workout.duration.back)
+        addRowData(tr, `${workout.elevation}m`)
+        addRowData(tr, workout.avgPace)
+        addRowData(tr, workout.avgHR)
         table.append(tr)
     }
 }
@@ -118,7 +116,7 @@ const main = async () => {
         const workouts = await response.json()
 
         // if no workouts
-        if (length(workouts) == 0) {
+        if (workouts.length == 0) {
             return
         }
 
