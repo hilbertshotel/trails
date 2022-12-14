@@ -10,32 +10,9 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type Workout struct {
-	Date      string  `json:"date"`
-	Distance  float64 `json:"distance"`
-	Duration  string  `json:"duration"`
-	Elevation int     `json:"elevation"`
-	AvgPace   float64 `json:"avg_pace"`
-	AvgHR     int     `json:"avg_hr"`
-}
-type Workouts []Workout
-
-const (
-	JSON_FILE = "workouts.json"
-	CONN_STR  = "user=postgres dbname=trails password=postgres sslmode=disable"
-)
-
-func handleError(err error) {
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-}
-
-func main() {
-
+func adder(filename string) {
 	// open file
-	file, err := os.Open(JSON_FILE)
+	file, err := os.Open(filename)
 	handleError(err)
 	defer file.Close()
 
@@ -44,10 +21,9 @@ func main() {
 	handleError(err)
 
 	// unmarshal file
-	var jsonData map[string]Workouts
-	err = json.Unmarshal(raw, &jsonData)
+	var workouts Workouts
+	err = json.Unmarshal(raw, &workouts)
 	handleError(err)
-	workouts := jsonData["workouts"]
 
 	// open db
 	db, err := sql.Open("postgres", CONN_STR)

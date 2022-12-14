@@ -1,19 +1,12 @@
 
-move sorting to the frontend again
 
 separate rows of different month by color 
 
 create + button to add new workouts (use direct password instead of login)
 
-create a helper script to dump all workouts from db into json file
-
 get rid of nginx and serve directly with go?
 
 change README image when done
-
-TEST WITH EMPTY WORKOUTS
-
-WHEN YOU SAVE TO DATABASE DURATION PARSE INTO SECONDS
 
 win: "user=postgres dbname=trails password=postgres sslmode=disable"
 unix: "user=postgres dbname=trails sslmode=disable host=/run/postgresql"

@@ -10,7 +10,7 @@ type Total struct {
 	Elevation int
 }
 
-// WORKOUT BACKEND
+// WORKOUT
 type Duration struct {
 	Front float64 `json:"front"`
 	Back  string  `json:"back"`

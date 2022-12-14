@@ -1,108 +1,106 @@
-{
-    "workouts": [
-        {
-            "date": "23 Nov 22",
-            "distance": 5.0,
-            "duration": "32m",
-            "elevation": 0,
-            "avg_pace": 6.25,
-            "avg_hr": 140
-        },
-        {
-            "date": "24 Nov 22",
-            "distance": 5.0,
-            "duration": "32m",
-            "elevation": 0,
-            "avg_pace": 6.22,
-            "avg_hr": 142
-        },
-        {
-            "date": "25 Nov 22",
-            "distance": 5.0,
-            "duration": "32m",
-            "elevation": 0,
-            "avg_pace": 6.23,
-            "avg_hr": 143
-        },
-        {
-            "date": "28 Nov 22",
-            "distance": 10.0,
-            "duration": "1h3m",
-            "elevation": 6,
-            "avg_pace": 6.22,
-            "avg_hr": 142
-        },
-        {
-            "date": "29 Nov 22",
-            "distance": 3.0,
-            "duration": "14m31s",
-            "elevation": 0,
-            "avg_pace": 4.48,
-            "avg_hr": 161
-        },
-        {
-            "date": "01 Dec 22",
-            "distance": 5.0,
-            "duration": "28m",
-            "elevation": 0,
-            "avg_pace": 5.35,
-            "avg_hr": 144
-        },
-        {
-            "date": "02 Dec 22",
-            "distance": 5.0,
-            "duration": "29m21s",
-            "elevation": 0,
-            "avg_pace": 5.51,
-            "avg_hr": 144
-        },
-        {
-            "date": "05 Dec 22",
-            "distance": 5.0,
-            "duration": "30m27s",
-            "elevation": 0,
-            "avg_pace": 6.05,
-            "avg_hr": 139
-        },
-        {
-            "date": "06 Dec 22",
-            "distance": 5.7,
-            "duration": "1h6m",
-            "elevation": 405,
-            "avg_pace": 11.40,
-            "avg_hr": 125
-        },
-        {
-            "date": "07 Dec 22",
-            "distance": 5.3,
-            "duration": "30m40s",
-            "elevation": 0,
-            "avg_pace": 5.49,
-            "avg_hr": 149
-        },
-        {
-            "date": "09 Dec 22",
-            "distance": 10.0,
-            "duration": "1h4m",
-            "elevation": 0,
-            "avg_pace": 6.26,
-            "avg_hr": 134
-        },
-        {
-            "date": "12 Dec 22",
-            "distance": 15.0,
-            "duration": "1h59m",
-            "elevation": 516,
-            "avg_pace": 7.55,
-            "avg_hr": 132
-        },
-        {
-            "date": "14 Dec 22",
-            "distance": 5.0,
-            "duration": "33m49s",
-            "elevation": 0,
-            "avg_pace": 6.45,
-            "avg_hr": 135
-        }
-    ]
-}
+[
+    {
+        "date": "23 Nov 22",
+        "distance": 5.0,
+        "duration": "32m",
+        "elevation": 0,
+        "avg_pace": 6.25,
+        "avg_hr": 140
+    },
+    {
+        "date": "24 Nov 22",
+        "distance": 5.0,
+        "duration": "32m",
+        "elevation": 0,
+        "avg_pace": 6.22,
+        "avg_hr": 142
+    },
+    {
+        "date": "25 Nov 22",
+        "distance": 5.0,
+        "duration": "32m",
+        "elevation": 0,
+        "avg_pace": 6.23,
+        "avg_hr": 143
+    },
+    {
+        "date": "28 Nov 22",
+        "distance": 10.0,
+        "duration": "1h3m",
+        "elevation": 6,
+        "avg_pace": 6.22,
+        "avg_hr": 142
+    },
+    {
+        "date": "29 Nov 22",
+        "distance": 3.0,
+        "duration": "14m31s",
+        "elevation": 0,
+        "avg_pace": 4.48,
+        "avg_hr": 161
+    },
+    {
+        "date": "01 Dec 22",
+        "distance": 5.0,
+        "duration": "28m",
+        "elevation": 0,
+        "avg_pace": 5.35,
+        "avg_hr": 144
+    },
+    {
+        "date": "02 Dec 22",
+        "distance": 5.0,
+        "duration": "29m21s",
+        "elevation": 0,
+        "avg_pace": 5.51,
+        "avg_hr": 144
+    },
+    {
+        "date": "05 Dec 22",
+        "distance": 5.0,
+        "duration": "30m27s",
+        "elevation": 0,
+        "avg_pace": 6.05,
+        "avg_hr": 139
+    },
+    {
+        "date": "06 Dec 22",
+        "distance": 5.7,
+        "duration": "1h6m",
+        "elevation": 405,
+        "avg_pace": 11.40,
+        "avg_hr": 125
+    },
+    {
+        "date": "07 Dec 22",
+        "distance": 5.3,
+        "duration": "30m40s",
+        "elevation": 0,
+        "avg_pace": 5.49,
+        "avg_hr": 149
+    },
+    {
+        "date": "09 Dec 22",
+        "distance": 10.0,
+        "duration": "1h4m",
+        "elevation": 0,
+        "avg_pace": 6.26,
+        "avg_hr": 134
+    },
+    {
+        "date": "12 Dec 22",
+        "distance": 15.0,
+        "duration": "1h59m",
+        "elevation": 516,
+        "avg_pace": 7.55,
+        "avg_hr": 132
+    },
+    {
+        "date": "14 Dec 22",
+        "distance": 5.0,
+        "duration": "33m49s",
+        "elevation": 0,
+        "avg_pace": 6.45,
+        "avg_hr": 135
+    }
+]
