@@ -1,10 +1,12 @@
 // COLORS
+// ================================================================================
 const TURQUOISE = "rgb(111, 218, 243)"
 const BROWN = "#555759"
 const LIGHT_GREY = "#f6f6f6"
 const PINK = "#c85e7a"
 
 // COLUMN FUNCTIONS
+// ================================================================================
 const getMarked = (row) => {
     for (const column of row.children) {
         if (column.style.background == TURQUOISE) {
@@ -23,24 +25,66 @@ const unmarkColumn = (column) => {
     column.style.color = LIGHT_GREY
 }
 
-// SORT FUNCTIONS
-const sortWorkouts = async (row, table, column, socket, direction) => {
+// SORT & LOAD WORKOUTS
+// ================================================================================
+const sortAndLoad = async (row, table, column, workouts) => {
+    workouts.reverse()
     const marked = getMarked(row)
     if (column.id != marked.id) {
         unmarkColumn(marked)
         markColumn(column)
     }
     clearTable(table)
-    socket.send(JSON.stringify({name: column.id, direction: direction}))
-    const newDirection = direction == "desc" ? "asc" : "desc" 
-    column.onclick = () => { sortWorkouts(row, table, column, socket, newDirection) }
+    loadWorkouts(table, workouts)
+    column.onclick = () => { sortAndLoad(row, table, column, workouts) }
 }
-
-// TABLE FUNCTIONS
 const clearTable = (table) => {
     table.innerHTML = ""
 } 
 
+// LOAD SORTERS
+// ================================================================================
+const loadSorters = (row, table, workouts) => {
+    // date (comes already sorted)
+    const date = document.getElementById("date")
+    date.onclick = () => { sortAndLoad(row, table, date, workouts) }
+
+    // distance
+    const distance = document.getElementById("distance")
+    workouts.sort((a, b) => { return a.Distance - b.Distance })
+    distance.onclick = () => { sortAndLoad(row, table, distance, workouts) }
+
+    // duration
+    const duration = document.getElementById("duration")
+    duration.onclick = () => { sortAndLoad(row, table, duration, sortDuration(workouts)) }
+
+    // elevation
+    const elevation = document.getElementById("elevation")
+    workouts.sort((a, b) => { return a.Elevation - b.Elevation })
+    elevation.onclick = () => { sortAndLoad(row, table, elevation, workouts) }
+
+    // pace
+    const pace = document.getElementById("pace")
+    workouts.sort((a, b) => { return a.AvgPace - b.AvgPace })
+    pace.onclick = () => { sortAndLoad(row, table, pace, workouts) }
+
+    // hr
+    const hr = document.getElementById("hr")
+    workouts.sort((a, b) => { return a.AvgHR - b.AvgHR })
+    hr.onclick = () => { sortAndLoad(row, table, hr, workouts) }
+}
+
+const sortDuration = (workouts) => {
+    workouts.sort((a, b) => {
+        
+
+        return a.Elevation - b.Elevation
+    })
+    return workouts
+}
+
+// LOAD WORKOUTS
+// ================================================================================
 const loadWorkouts = (table, workouts) => {
     for (const workout of workouts) {
         const tr = document.createElement("tr")
@@ -59,46 +103,31 @@ const addRowData = (tr, data) => {
     tr.append(td)
 }
 
-const loadSorters = (row, table, columns, socket) => {
-    for (const name of columns) {
-        const column = document.getElementById(name)
-        column.onclick = () => { sortWorkouts(row, table, column, socket, "desc") }
-    }
-}
-
 // ON PAGE LOAD
+// ================================================================================
 const main = async () => {
     
     // init constants
     const row = document.getElementById("first_row")
     const table = document.getElementById("workouts")
-    const firstColumn = document.getElementById("date")
-    const columns = ["date", "distance", "duration", "elevation", "pace", "hr"]
+    const date = document.getElementById("date")
 
-    // get ws server address
-    const response = await fetch("/wsa")
+    // request workouts
+    const response = await fetch("/workouts")
     if (response.ok) {
-        const addr = await response.text()
+        const workouts = await response.json()
 
-        // connect to ws server
-        const socket = new WebSocket(addr)
-        socket.onopen = (_) => {
-            console.log("Web Socket Connection Established")
-            socket.send(JSON.stringify({name: "date", direction: "desc"}))
-        }
-        socket.onclose = (_) => {
-            console.log("Web Socket Connection Terminated")
+        // if no workouts
+        if (length(workouts) == 0) {
+            return
         }
 
-        // on receive
-        socket.onmessage = (msg) => {
-            const workouts = JSON.parse(msg.data)
-            loadWorkouts(table, workouts)
-        }
+        // load workouts in DOM
+        loadWorkouts(table, workouts)
+        markColumn(date)
 
         // load sorters
-        loadSorters(row, table, columns, socket)
-        markColumn(firstColumn)
+        loadSorters(row, table, workouts)
     }
 
     else {

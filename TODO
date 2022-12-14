@@ -1,7 +1,5 @@
 
-finish wrk.Sort() function for all types of workouts
-
-SORTER backend function should not return http.Error - instead return the standard workouts and some error msg
+move sorting to the frontend again
 
 separate rows of different month by color 
 
@@ -12,3 +10,7 @@ create a helper script to dump all workouts from db into json file
 get rid of nginx and serve directly with go?
 
 change README image when done
+
+TEST WITH EMPTY WORKOUTS
+
+WHEN YOU SAVE TO DATABASE DURATION PARSE INTO SECONDS

@@ -1,4 +1,4 @@
-package wrk
+package main
 
 func (workouts Workouts) Sort(args map[string]string) Workouts {
 

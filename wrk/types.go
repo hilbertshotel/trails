@@ -14,7 +14,7 @@ type Total struct {
 type Workout struct {
 	Date      string  `bson:"date"`
 	Distance  float64 `bson:"distance"`
-	Duration  string  `bson:"duration"`
+	Duration  int     `bson:"duration"`
 	Elevation int     `bson:"elevation"`
 	AvgPace   float64 `bson:"avg_pace"`
 	AvgHR     int     `bson:"avg_hr"`

@@ -1,9 +1,8 @@
 package dep
 
 import (
+	"database/sql"
 	"html/template"
-
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // LOGGER
@@ -14,23 +13,16 @@ type Logger struct {
 }
 
 // CONFIG
-type Mongo struct {
-	Uri        string
-	Database   string
-	Collection string
-}
-
 type Config struct {
 	HostAddr string
 	Template string
-	Mongo    Mongo
+	ConnStr  string
 }
 
 // DEPENDENCIES
 type Dependencies struct {
-	Log    *Logger
-	Cfg    *Config
-	Client *mongo.Client
-	Coll   *mongo.Collection
-	Tmp    *template.Template
+	Log *Logger
+	Cfg *Config
+	DB  *sql.DB
+	Tmp *template.Template
 }

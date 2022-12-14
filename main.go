@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"net/http"
 	"time"
 	"trails/dep"
@@ -15,6 +14,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer d.DB.Close()
 
 	// server
 	server := http.Server{
@@ -35,5 +35,4 @@ func main() {
 
 	// shutdown
 	d.Log.Error(<-ech)
-	d.Client.Disconnect(context.Background())
 }

@@ -1,24 +1,22 @@
 package dep
 
 import (
-	"context"
+	"database/sql"
 	"fmt"
 	"html/template"
 	"log"
 	"os"
 	"path/filepath"
 	"runtime"
-	"time"
 
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	_ "github.com/lib/pq"
 )
 
 // LOAD DEPENDENCIES
 func Load() (*Dependencies, error) {
 	log := initLogger()
 	cfg := initConfig()
-	coll, client, err := initDatabase(cfg)
+	db, err := initDatabase(cfg)
 	if err != nil {
 		return nil, err
 	}
@@ -28,11 +26,10 @@ func Load() (*Dependencies, error) {
 	}
 
 	return &Dependencies{
-		Log:    log,
-		Cfg:    cfg,
-		Client: client,
-		Coll:   coll,
-		Tmp:    tmp,
+		Log: log,
+		Cfg: cfg,
+		DB:  db,
+		Tmp: tmp,
 	}, nil
 }
 
@@ -61,17 +58,12 @@ func initLogger() *Logger {
 }
 
 // INITIALIZE DATABASE
-func initDatabase(cfg *Config) (*mongo.Collection, *mongo.Client, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
-	defer cancel()
-
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(cfg.Mongo.Uri))
+func initDatabase(cfg *Config) (*sql.DB, error) {
+	db, err := sql.Open("postgres", cfg.ConnStr)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
-
-	coll := client.Database(cfg.Mongo.Database).Collection(cfg.Mongo.Collection)
-	return coll, client, nil
+	return db, nil
 }
 
 // INITIALIZE TEMPLATES
