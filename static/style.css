@@ -1,7 +1,8 @@
 :root {
     --brown: #555759;
     --light-gray: #f6f6f6;
-    --turquoise: #6fdaf3;
+    --turquoise: #91f1ba;
+    /* --turquoise: #6fdaf3; */
     --pink: #c85e7a;
 }
 
@@ -9,14 +10,14 @@ body {
     margin: 2rem;
     box-sizing: border-box;
     text-align: center;
+    user-select: none;
 }
 
 main {
     display: inline-block;
     background-color: var(--light-gray);
     color: var(--brown);
-    /* font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace; */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
     font-size: 1.2rem;
     padding: 2rem;
     border-radius: .5rem;
@@ -50,6 +51,16 @@ table {
 td {
     border: .01rem solid var(--brown);
     padding: .2rem 1rem .2rem 1rem;
+    border-left: none;
+    border-right: none;
+}
+
+#wr {
+    transition: background-color 1s;
+}
+
+#wr:hover {
+    background-color: var(--turquoise);
 }
 
 .column_name {
@@ -59,4 +70,9 @@ td {
 
 #date, #distance, #duration, #elevation, #pace, #hr {
     cursor: pointer;
+    transition: color 1s;
+}
+
+#date:hover, #distance:hover, #duration:hover, #elevation:hover, #pace:hover, #hr:hover {
+    color: var(--turquoise);
 }

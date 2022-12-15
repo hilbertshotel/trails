@@ -1,6 +1,8 @@
+helpers: password adder
 
+alternate grey between different months
 
-separate rows of different month by color 
+WHOLE ROW CHANGES COLOR UPON HOVER
 
 create + button to add new workouts (use direct password instead of login)
 

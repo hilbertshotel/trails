@@ -1,6 +1,7 @@
 // COLORS
 // ================================================================================
-const TURQUOISE = "rgb(111, 218, 243)"
+// const TURQUOISE = "rgb(111, 218, 243)"
+const TURQUOISE = "rgb(145, 241, 186)"
 const BROWN = "#555759"
 const LIGHT_GREY = "#f6f6f6"
 const PINK = "#c85e7a"
@@ -86,6 +87,7 @@ const loadSorters = (row, table, workouts) => {
 const loadWorkouts = (table, workouts) => {
     for (const workout of workouts) {
         const tr = document.createElement("tr")
+        tr.id = "wr"
         addRowData(tr, workout.date)
         addRowData(tr, `${workout.distance}km`)
         addRowData(tr, workout.duration.back)
