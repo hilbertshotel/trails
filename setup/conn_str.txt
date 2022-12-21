@@ -1,0 +1,4 @@
+win:
+    "user=postgres dbname=trails password=postgres sslmode=disable"
+unix:
+    "user=postgres dbname=trails password=postgres sslmode=disable host=/run/postgresql"

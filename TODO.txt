@@ -1,0 +1,7 @@
+future features:
+
+- helpers: password adder
+- create + button to add new workouts (use direct password instead of login)
+- create frontend with REACT
+- make mobile compatible
+- change README image when done
