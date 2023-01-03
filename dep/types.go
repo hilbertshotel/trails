@@ -14,9 +14,9 @@ type Logger struct {
 
 // CONFIG
 type Config struct {
-	HostAddr string
-	Template string
-	ConnStr  string
+	HostAddr string `json:"hostAddr"`
+	TmpDir   string `json:"tmpDir"`
+	ConnStr  string `json:"connStr"`
 }
 
 // DEPENDENCIES

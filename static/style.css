@@ -1,7 +1,7 @@
 :root {
     --brown: #555759;
     --light-gray: #f6f6f6;
-    --turquoise: #91f1ba;
+    --green: #91f1ba;
     /* --turquoise: #6fdaf3; */
     --pink: #c85e7a;
 }
@@ -23,9 +23,10 @@ main {
     border-radius: .5rem;
 }
 
+/********** TITLE **********/
 h1 {
     text-align: right;
-    color: var(--turquoise);
+    color: var(--green);
     font-size: 5rem;
     margin: 0 2rem -2.5rem 0;
 
@@ -36,6 +37,57 @@ h1 {
         -.2rem -.2rem 0 var(--brown);
 }
 
+/********** OPEN ADDER BUTTON **********/
+#openAdder {
+    position: relative;
+    cursor: pointer;
+    animation-name: openAdderAnimation;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes openAdderAnimation {
+    0% { top: 0px; } 
+    50% { top: -3px; }
+    100% { top: 0px; }
+}
+
+/********** ADDER SECTION **********/
+#adder {
+    border-radius: .5rem;
+    margin-bottom: 2.5rem;
+}
+
+textarea {
+    margin: 0;
+    background-color: var(--light-gray);
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: .8rem;
+    resize: none;
+    border: .01rem solid var(--brown);
+    outline: none;
+}
+
+#addButton {
+    background-color: var(--brown);
+    float: right;
+    color: var(--light-gray);
+    padding: 0 .6rem 0 .6rem;
+    cursor: pointer;
+}
+#addButton {
+    float: right;
+}
+#addButton:hover {
+    background-color: var(--pink);
+}
+#response {
+    float: left;
+}
+
+/* OTHER SHIT */
 h2 {
     text-align: left;
     font-size: 2.2rem;
@@ -60,7 +112,7 @@ td {
 }
 
 #wr:hover {
-    background-color: var(--turquoise);
+    background-color: var(--green);
 }
 
 .column_name {
@@ -74,5 +126,5 @@ td {
 }
 
 #date:hover, #distance:hover, #duration:hover, #elevation:hover, #pace:hover, #hr:hover {
-    color: var(--turquoise);
+    color: var(--green);
 }

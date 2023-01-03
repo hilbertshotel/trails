@@ -1,5 +1,9 @@
 future features:
 
+- remove adder from helpers and add config
+- add adder to webpage
+- add months section
+
 - helpers: password adder
 - create + button to add new workouts (use direct password instead of login)
 - create frontend with REACT

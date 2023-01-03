@@ -2,7 +2,31 @@
 
 <main>
 
-<h1>Trails</h1>
+<!-- TITLE SECTION -->
+<h1><span id="openAdder" onclick="openAdder(this)">+</span>Trails</h1>
+
+<!-- ADDER SECTION -->
+<div id="adder" hidden>
+<h2>Adder</h2>
+
+<textarea rows="10">[
+    {
+        "date": "17 Dec 22",
+        "distance": 13.0,
+        "duration": "1h30m20s",
+        "elevation": 357,
+        "avg_pace": 9.21,
+        "avg_hr": 134,
+        "pin": 123456
+    }
+]</textarea>
+
+<span id="response">response:</span>
+<span id="addButton" onclick="sendAddRequest()">+</span>
+
+</div>
+
+<!-- TOTALS SECTION -->
 <h2>Total</h2>
 
 <table>
@@ -24,6 +48,7 @@
     </tr>
 </table>
 
+<!-- WORKOUTS SECTION -->
 <h2>Workouts</h2>
 
 <table >

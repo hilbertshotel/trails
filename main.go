@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 	"time"
 	"trails/dep"
 	"trails/handlers"
@@ -9,8 +10,14 @@ import (
 
 func main() {
 
+	// get config type
+	args := os.Args[1:]
+	if len(args) != 1 {
+		panic("No config path argument provided!")
+	}
+
 	// Load Dependencies
-	d, err := dep.Load()
+	d, err := dep.Load(args[0])
 	if err != nil {
 		panic(err)
 	}

@@ -26,6 +26,23 @@ const unmarkColumn = (column) => {
     column.style.color = LIGHT_GREY
 }
 
+// ADDER FUNCTIONS
+// ================================================================================
+const openAdder = (addButton) => {
+    const adder = document.getElementById("adder")
+    if (addButton.innerHTML == "+") {
+        adder.hidden = false
+        addButton.innerHTML = "-"
+    } else {
+        adder.hidden = true
+        addButton.innerHTML = "+"
+    }
+}
+
+const sendAddRequest = () => {
+    
+}
+
 // SORT & LOAD WORKOUTS
 // ================================================================================
 const sortAndLoad = async (row, table, column, workouts) => {

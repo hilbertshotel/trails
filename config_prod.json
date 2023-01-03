@@ -1,0 +1,5 @@
+{
+    "hostAddr": "0.0.0.0:9990",
+    "tmpDir": "templates/*",
+    "connStr": "user=postgres dbname=trails sslmode=disable host=/run/postgresql"
+}

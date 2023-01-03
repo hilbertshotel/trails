@@ -2,6 +2,7 @@ package dep
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
@@ -13,9 +14,12 @@ import (
 )
 
 // LOAD DEPENDENCIES
-func Load() (*Dependencies, error) {
+func Load(path string) (*Dependencies, error) {
 	log := initLogger()
-	cfg := initConfig()
+	cfg, err := loadConfig(path)
+	if err != nil {
+		return nil, err
+	}
 	db, err := initDatabase(cfg)
 	if err != nil {
 		return nil, err
@@ -31,6 +35,23 @@ func Load() (*Dependencies, error) {
 		DB:  db,
 		Tmp: tmp,
 	}, nil
+}
+
+// LOAD CONFIG
+func loadConfig(path string) (*Config, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var cfg Config
+	decoder := json.NewDecoder(file)
+	if err := decoder.Decode(&cfg); err != nil {
+		return nil, err
+	}
+
+	return &cfg, nil
 }
 
 // INITIALIZE LOGGER
@@ -68,7 +89,7 @@ func initDatabase(cfg *Config) (*sql.DB, error) {
 
 // INITIALIZE TEMPLATES
 func initTemplates(cfg *Config) (*template.Template, error) {
-	tmp, err := template.ParseGlob(cfg.Template)
+	tmp, err := template.ParseGlob(cfg.TmpDir)
 	if err != nil {
 		return nil, err
 	}
