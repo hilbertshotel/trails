@@ -3,8 +3,8 @@ package dep
 // INITIALIZE CONFIG
 func initConfig() *Config {
 	return &Config{
-		HostAddr: "127.0.0.1:9990",
+		HostAddr: "0.0.0.0:9990",
 		Template: "templates/*",
-		ConnStr:  "user=postgres dbname=trails password=postgres sslmode=disable",
+		ConnStr:  "user=postgres dbname=trails sslmode=disable host=/run/postgresql",
 	}
 }

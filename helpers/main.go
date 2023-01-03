@@ -16,7 +16,7 @@ type Workout struct {
 }
 type Workouts []Workout
 
-const CONN_STR = "user=postgres dbname=trails password=postgres sslmode=disable"
+const CONN_STR = "user=postgres dbname=trails sslmode=disable host=/run/postgresql"
 
 func handleError(err error) {
 	if err != nil {
